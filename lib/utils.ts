@@ -35,7 +35,7 @@ export function filterProducts(products: ProductDetails[], search: string) {
   );
 }
 
-<<<<<<< HEAD
+
 export function slugify(value: string): string {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -46,7 +46,7 @@ export function matchCategory<T extends { id: number; nombre: string }>(categori
   if (!v) return undefined;
   return categories.find((c) => String(c.id) === value.trim() || slugify(c.nombre) === v || slugify(c.nombre).startsWith(v) || `${slugify(c.nombre)}s` === v);
 }
-=======
+
 /** Fuentes directas de portada, en orden de prioridad: URL cargada en el admin y portada de Open Library por ISBN. */
 export function coverCandidates(product: { isbn?: string; imagen_url?: string | null }): string[] {
   const list: string[] = [];
@@ -60,4 +60,4 @@ export function coverCandidates(product: { isbn?: string; imagen_url?: string | 
 export function coverSearchQuery(title: string): string {
   return title.replace(/\b(vol(umen)?|tomo|n[º°])\.?\s*\d+/gi, " ").replace(/[:·–—-]/g, " ").replace(/\s+/g, " ").trim();
 }
->>>>>>> 5897f30 (mejoras efi)
+
