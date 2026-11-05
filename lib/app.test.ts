@@ -1,11 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
 import { extractApiError } from "@/lib/api";
-<<<<<<< HEAD
-import { filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
-=======
 import { coverCandidates, coverSearchQuery, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
->>>>>>> 49101bf (mejoras efi)
 import { mockProducts } from "@/lib/mock-data";
 
 describe("validaciones de formularios", () => {
@@ -47,8 +43,6 @@ describe("errores de la API", () => {
     expect(extractApiError({ isbn: ["Ya existe."] })).toBe("isbn: Ya existe.");
   });
 });
-<<<<<<< HEAD
-=======
 
 describe("portadas de los productos", () => {
   it("prioriza la URL cargada y luego el ISBN", () => {
@@ -65,4 +59,3 @@ describe("portadas de los productos", () => {
     expect(coverSearchQuery("One Piece Vol. 1: Romance Dawn")).toBe("One Piece Romance Dawn");
   });
 });
->>>>>>> 49101bf (mejoras efi)
