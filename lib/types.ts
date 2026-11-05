@@ -27,6 +27,7 @@ export type ApiPage<T> = {
   results: T[];
 };
 
+export type SessionUser = { id: number; username: string; email?: string; is_staff: boolean };
 export type CartLine = { product: ProductDetails; quantity: number };
 export type CustomerProfile = {
   id: number;

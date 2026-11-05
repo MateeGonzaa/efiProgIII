@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { apiRequest, getOrders } from "@/lib/api";
+import { apiRequest, getAll } from "@/lib/api";
 import { useAuth } from "@/components/providers";
 import type { Order, ProductDetails } from "@/lib/types";
 import { mockProducts } from "@/lib/mock-data";
@@ -25,11 +25,11 @@ export function OrderDetail() {
   const load = () => {
     if (!session) return;
     setLoading(true);
-    getOrders(session.token).then(async (items) => {
-      const found = items.find((item) => item.id === Number(params.id));
-      if (!found) { setError("No encontramos este pedido en tu historial."); return; }
-      setOrder(found);
-      const rows = found.detalles ?? [];
+    Promise.all([
+      apiRequest<Order>(`pedidos/${params.id}/`, { token: session.token }),
+      getAll<NonNullable<Order["detalles"]>[number]>(`detalles/?pedido=${params.id}`, session.token),
+    ]).then(async ([found, rows]) => {
+      setOrder({ ...found, detalles: rows });
       const loaded = await Promise.all(rows.map(async (row) => {
         try { return await apiRequest<ProductDetails>(`productos/${row.producto}/`); }
         catch { return mockProducts.find((product) => product.id === row.producto); }

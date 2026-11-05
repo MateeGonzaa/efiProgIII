@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
+import { extractApiError } from "@/lib/api";
 import { filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
 import { mockProducts } from "@/lib/mock-data";
 
@@ -30,5 +31,15 @@ describe("utilidades de la tienda", () => {
 
   it("prioriza el mensaje de detalle de la API", () => {
     expect(getApiMessage({ detail: "Sesión vencida." })).toBe("Sesión vencida.");
+  });
+});
+
+describe("errores de la API", () => {
+  it("muestra el login incorrecto sin el nombre del campo", () => {
+    expect(extractApiError({ non_field_errors: ["No se puede iniciar sesión."] })).toBe("No se puede iniciar sesión.");
+  });
+
+  it("antepone el campo en errores de validación", () => {
+    expect(extractApiError({ isbn: ["Ya existe."] })).toBe("isbn: Ya existe.");
   });
 });

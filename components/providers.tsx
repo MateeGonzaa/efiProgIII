@@ -2,10 +2,10 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { apiRequest } from "@/lib/api";
+import { apiRequest, UNAUTHORIZED_EVENT } from "@/lib/api";
 import type { CartLine, ProductDetails } from "@/lib/types";
 
-type Session = { token: string; username: string };
+type Session = { token: string; username: string; isStaff: boolean };
 type AuthContextValue = {
   session: Session | null;
   ready: boolean;
@@ -39,7 +39,7 @@ export function StoreProviders({ children }: { children: ReactNode }) {
       const savedSession = localStorage.getItem("frikicueva-session");
       const savedLines = localStorage.getItem("frikicueva-cart");
       const savedTheme = localStorage.getItem("frikicueva-theme");
-      if (savedSession) setSession(JSON.parse(savedSession) as Session);
+      if (savedSession) { const parsed = JSON.parse(savedSession) as Session; setSession({ ...parsed, isStaff: Boolean(parsed.isStaff) }); }
       if (savedLines) setLines(JSON.parse(savedLines) as CartLine[]);
       if (savedTheme === "light" || savedTheme === "dark") setTheme(savedTheme);
     } catch {
@@ -50,6 +50,11 @@ export function StoreProviders({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const expire = () => { localStorage.removeItem("frikicueva-session"); setSession(null); };
+    window.addEventListener(UNAUTHORIZED_EVENT, expire);
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, expire);
+  }, []);
+  useEffect(() => {
     if (ready) localStorage.setItem("frikicueva-cart", JSON.stringify(lines));
   }, [lines, ready]);
   useEffect(() => {
@@ -58,11 +63,11 @@ export function StoreProviders({ children }: { children: ReactNode }) {
   }, [theme, ready]);
 
   const signIn = useCallback(async (username: string, password: string) => {
-    const result = await apiRequest<{ token: string }>("auth/login/", {
+    const result = await apiRequest<{ token: string; usuario: { username: string; is_staff: boolean } }>("auth/login/", {
       method: "POST",
       body: JSON.stringify({ username, password }),
     });
-    const next = { token: result.token, username };
+    const next = { token: result.token, username: result.usuario?.username ?? username, isStaff: Boolean(result.usuario?.is_staff) };
     localStorage.setItem("frikicueva-session", JSON.stringify(next));
     setSession(next);
   }, []);
@@ -72,7 +77,7 @@ export function StoreProviders({ children }: { children: ReactNode }) {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const next = { token: result.token, username: data.username };
+    const next = { token: result.token, username: data.username, isStaff: false };
     localStorage.setItem("frikicueva-session", JSON.stringify(next));
     setSession(next);
   }, []);

@@ -24,8 +24,14 @@ export function CartPage() {
       const profile = await getCustomerProfile(session.token);
       if (!profile) { router.push("/cuenta/perfil"); return; }
       const order = await apiRequest<{ id: number }>("pedidos/", { method: "POST", token: session.token, body: JSON.stringify({}) });
-      for (const line of lines) {
-        await apiRequest("detalles/", { method: "POST", token: session.token, body: JSON.stringify({ pedido: order.id, producto: line.product.id, cantidad: line.quantity }) });
+      try {
+        for (const line of lines) {
+          await apiRequest("detalles/", { method: "POST", token: session.token, body: JSON.stringify({ pedido: order.id, producto: line.product.id, cantidad: line.quantity }) });
+        }
+      } catch (reason) {
+        // Si una línea falla (ej. sin stock) se cancela el pedido a medio armar para devolver el stock reservado.
+        await apiRequest(`pedidos/${order.id}/cancelar/`, { method: "POST", token: session.token }).catch(() => undefined);
+        throw reason;
       }
       clear();
       router.push(`/cuenta/pedidos/${order.id}`);

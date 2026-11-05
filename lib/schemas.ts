@@ -19,6 +19,8 @@ export const productSchema = z.object({
   categoria: z.coerce.number().int().positive("Elegí una categoría."),
   editorial: z.coerce.number().int().positive("Elegí una editorial."),
   autores: z.array(z.coerce.number().int().positive()).min(1, "Elegí al menos un autor."),
+  stock: z.coerce.number().int("Ingresá un número entero.").min(0, "El stock no puede ser negativo."),
+  pasillo: z.string().min(1, "Indicá el pasillo.").max(10, "Máximo 10 caracteres."),
 });
 
 export const profileSchema = z.object({

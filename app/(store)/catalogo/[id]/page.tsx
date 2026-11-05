@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/api";
 import { mockProducts } from "@/lib/mock-data";
@@ -8,16 +9,19 @@ import { BackLink } from "@/components/status";
 
 type Props = { params: Promise<{ id: string }> };
 
+// Evita pedir el mismo producto dos veces (metadata + página).
+const loadProduct = cache((id: string) => getProduct(id));
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const found = mockProducts.find((product) => product.id === Number(id));
+  const found = await loadProduct(id).catch(() => mockProducts.find((product) => product.id === Number(id)));
   return { title: found?.titulo ?? "Edición" };
 }
 
 export default async function ProductPage({ params }: Props) {
   const { id } = await params;
   let product: ProductDetails | undefined;
-  try { product = await getProduct(id); }
+  try { product = await loadProduct(id); }
   catch { product = mockProducts.find((item) => item.id === Number(id)); }
   if (!product) notFound();
   return <><ProductDetailClient product={product}/><div className="detail-back page-shell"><BackLink/></div></>;
