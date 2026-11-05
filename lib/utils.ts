@@ -1,0 +1,36 @@
+import type { ProductDetails } from "@/lib/types";
+
+export function formatCurrency(value: number | string): string {
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0,
+  }).format(Number(value) || 0);
+}
+
+export function categoryName(value: ProductDetails["categoria"] | number | undefined) {
+  return typeof value === "object" && value ? value.nombre : "Edición especial";
+}
+
+export function getApiMessage(payload: unknown): string {
+  if (typeof payload === "string") return payload;
+  if (payload && typeof payload === "object") {
+    const record = payload as Record<string, unknown>;
+    if (typeof record.detail === "string") return record.detail;
+    const first = Object.values(record)[0];
+    if (Array.isArray(first) && typeof first[0] === "string") return first[0];
+    if (typeof first === "string") return first;
+  }
+  return "No pudimos completar la operación. Intentá de nuevo.";
+}
+
+export function filterProducts(products: ProductDetails[], search: string) {
+  const normalized = search.trim().toLocaleLowerCase("es-AR");
+  if (!normalized) return products;
+  return products.filter((product) =>
+    [product.titulo, product.categoria.nombre, product.editorial.nombre, ...product.autores.map((author) => author.nombre)]
+      .join(" ")
+      .toLocaleLowerCase("es-AR")
+      .includes(normalized),
+  );
+}
