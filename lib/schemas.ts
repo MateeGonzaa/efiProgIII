@@ -21,7 +21,7 @@ export const productSchema = z.object({
   autores: z.array(z.coerce.number().int().positive()).min(1, "Elegí al menos un autor."),
 
 
-  imagen_url: z.string().url("Ingresá una URL válida (https://…).").optional().or(z.literal("")),
+  imagen_url: z.string().refine((value) => value === "" || /^https?:\/\/\S+$/.test(value) || /^\/(?!\/)\S+$/.test(value), "Ingresá un enlace (https://…) o una ruta como /portadas/titulo.jpg.").optional(),
   stock: z.coerce.number().int("Ingresá un número entero.").min(0, "El stock no puede ser negativo."),
   pasillo: z.string().min(1, "Indicá el pasillo.").max(10, "Máximo 10 caracteres."),
 });

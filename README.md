@@ -24,7 +24,12 @@ Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) pa
 
 ## Portadas
 
-Cada tarjeta muestra la **tapa real** de la edición. El orden es: la **URL de portada** cargada en el panel de gestión (`imagen_url`) y, si no hay, una búsqueda automática por ISBN y título en Google Books y Open Library. Mientras carga (o si no se encuentra nada) se ve una ilustración SVG según la categoría. Para fijar una tapa exacta, cargá `imagen_url` al crear o editar el producto.
+Cada producto muestra su **tapa real** cuando tiene cargado el campo `imagen_url` (desde el panel de gestión, al crear o editar). Acepta dos formas:
+
+- **Imagen descargada:** guardala en `public/portadas/` (por ejemplo `public/portadas/berserk-1.jpg`) y cargá la ruta `/portadas/berserk-1.jpg`. Es lo más estable: no depende de ningún sitio externo.
+- **Enlace:** una URL `https://…` directa a la imagen.
+
+Si el producto no tiene imagen, o el enlace falla, se muestra una ilustración SVG según su categoría (cómic, manga o libros).
 
 ## Stack
 

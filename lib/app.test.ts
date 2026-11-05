@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
 import { extractApiError } from "@/lib/api";
-import { categoryLabel, coverCandidates, matchCategory, coverSearchQuery, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
+import { categoryLabel, matchCategory, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
 import { mockProducts } from "@/lib/mock-data";
 
 describe("validaciones de formularios", () => {
@@ -61,18 +61,14 @@ describe("categorías por nombre o id", () => {
     expect(matchCategory(cats, "terror")).toBeUndefined();
   });
 });
-describe("portadas de los productos", () => {
-  it("prioriza la URL cargada y luego el ISBN", () => {
-    const urls = coverCandidates({ imagen_url: "https://x.com/a.jpg", isbn: "978-84-450-0066-3" });
-    expect(urls[0]).toBe("https://x.com/a.jpg");
-    expect(urls[1]).toContain("9788445000663");
+describe("portada del producto", () => {
+  const base = { titulo: "Edición", isbn: "9781234567890", precio: 100, categoria: 1, editorial: 1, autores: [1], stock: 1, pasillo: "A1" };
+  it("acepta un enlace https o una ruta de la carpeta public", () => {
+    expect(productSchema.safeParse({ ...base, imagen_url: "https://sitio.com/tapa.jpg" }).success).toBe(true);
+    expect(productSchema.safeParse({ ...base, imagen_url: "/portadas/berserk-1.jpg" }).success).toBe(true);
   });
-
-  it("no inventa fuentes si no hay datos", () => {
-    expect(coverCandidates({ isbn: "123" })).toEqual([]);
-  });
-
-  it("limpia el título para buscar la portada", () => {
-    expect(coverSearchQuery("One Piece Vol. 1: Romance Dawn")).toBe("One Piece Romance Dawn");
+  it("acepta la portada vacía y rechaza textos sueltos", () => {
+    expect(productSchema.safeParse({ ...base, imagen_url: "" }).success).toBe(true);
+    expect(productSchema.safeParse({ ...base, imagen_url: "tapa.jpg" }).success).toBe(false);
   });
 });

@@ -55,17 +55,3 @@ export function matchCategory<T extends { id: number; nombre: string }>(categori
     return [slugify(c.nombre), slugify(categoryLabel(c.nombre))].some((s) => s === v || s.startsWith(v) || `${s}s` === v);
   });
 }
-
-/** Fuentes directas de portada, en orden de prioridad: URL cargada en el admin y portada de Open Library por ISBN. */
-export function coverCandidates(product: { isbn?: string; imagen_url?: string | null }): string[] {
-  const list: string[] = [];
-  if (product.imagen_url) list.push(product.imagen_url);
-  const isbn = product.isbn?.replace(/[^0-9X]/gi, "");
-  if (isbn && isbn.length >= 10) list.push(`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false`);
-  return list;
-}
-
-/** Limpia un título ("One Piece Vol. 1: Romance Dawn") para buscarlo en Open Library. */
-export function coverSearchQuery(title: string): string {
-  return title.replace(/\b(vol(umen)?|tomo|n[º°])\.?\s*\d+/gi, " ").replace(/[:·–—-]/g, " ").replace(/\s+/g, " ").trim();
-}

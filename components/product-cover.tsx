@@ -1,35 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { PointerEvent } from "react";
 import type { ProductDetails } from "@/lib/types";
 import { CoverArt, coverKind } from "@/components/cover-art";
-import { findCover } from "@/lib/cover-lookup";
 import { categoryLabel } from "@/lib/utils";
 
 type CoverProduct = Pick<ProductDetails, "id" | "titulo" | "categoria"> & { isbn?: string; imagen_url?: string | null };
 
 /**
- * Portada: ilustración SVG por categoría mientras carga. Encima se superpone la tapa real:
- * primero la `imagen_url` cargada en el admin y, si no hay (o falla), la que se busca por ISBN/título.
- * Si ninguna carga, queda la ilustración.
+ * Portada: ilustración SVG por categoría de fondo. Si el producto tiene `imagen_url` (un enlace o una ruta
+ * de /public como /portadas/berserk-1.jpg), la tapa se superpone con un fundido al terminar de cargar.
+ * Si no hay imagen o el enlace falla, queda la ilustración.
  */
 export function ProductCover({ product, className = "", priority = false }: { product: CoverProduct; className?: string; priority?: boolean }) {
   const [loadedUrl, setLoadedUrl] = useState("");
   const [failed, setFailed] = useState<string[]>([]);
-  const [found, setFound] = useState<string | null>(null);
   const name = typeof product.categoria === "object" ? product.categoria.nombre : "";
   const category = name ? categoryLabel(name) : "Edición de colección";
-  const own = product.imagen_url && !failed.includes(product.imagen_url) ? product.imagen_url : "";
-  const needsLookup = !own;
-  useEffect(() => {
-    if (!needsLookup) return;
-    let active = true;
-    findCover({ titulo: product.titulo, isbn: product.isbn }).then((url) => { if (active) setFound(url); });
-    return () => { active = false; };
-  }, [needsLookup, product.titulo, product.isbn]);
-  const auto = found && !failed.includes(found) ? found : "";
-  const photo = own || auto;
+  const photo = product.imagen_url && !failed.includes(product.imagen_url) ? product.imagen_url : "";
   const loaded = Boolean(photo) && loadedUrl === photo;
   const tilt = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
