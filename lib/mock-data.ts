@@ -3,7 +3,7 @@ import type { Author, Category, ProductDetails, Publisher } from "@/lib/types";
 export const mockCategories: Category[] = [
   { id: 1, nombre: "Cómic", descripcion: "Historias que hicieron historia." },
   { id: 2, nombre: "Manga", descripcion: "Nuevos mundos, tomo a tomo." },
-  { id: 3, nombre: "Fantasía Épica", descripcion: "Aventuras para perderse." },
+  { id: 3, nombre: "Libros", descripcion: "Novelas y aventuras para perderse." },
 ];
 
 const ivrea: Publisher = { id: 2, nombre: "Ivrea", pais: "Argentina" };

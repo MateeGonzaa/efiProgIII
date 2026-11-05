@@ -1,10 +1,10 @@
 # La Frikicueva — EFI (Frontend)
 
-Tienda online argentina de **cómics, manga y fantasía épica**. Este repositorio es el **frontend** (Next.js) y consume la API REST del grupo, hecha con Django y Django REST Framework.
+Tienda online argentina de **cómics, manga y libros**. Este repositorio es el **frontend** (Next.js) y consume la API REST del grupo, hecha con Django y Django REST Framework.
 
 ![Portada de La Frikicueva](outputs/portada.png)
 
-- **Aplicación desplegada:** _pendiente de publicar_
+- **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
 - **Tablero Kanban:** _pendiente de enlazar_
 - **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
@@ -13,7 +13,7 @@ Tienda online argentina de **cómics, manga y fantasía épica**. Este repositor
 
 | Área | Qué incluye |
 | --- | --- |
-| Catálogo | Búsqueda, filtro por categoría (Cómic, Manga, Fantasía Épica), orden por precio/título y paginación, todo conectado a los filtros del backend. La URL se puede compartir (`/catalogo?categoria=manga`). |
+| Catálogo | Búsqueda, filtro por categoría (Cómic, Manga, Libros), orden por precio/título y paginación, todo conectado a los filtros del backend. La URL se puede compartir (`/catalogo?categoria=manga`). |
 | Fichas | Detalle de cada edición (`/catalogo/[id]`) con autores, editorial, stock y portada. |
 | Carrito y pedidos | Carrito, checkout básico, listado, detalle y cancelación de pedidos. |
 | Cuenta | Registro, login/logout con token, perfil de cliente. |
@@ -24,9 +24,7 @@ Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) pa
 
 ## Portadas
 
-Cada producto tiene una portada ilustrada en SVG según su categoría (cómic, manga o fantasía): carga al instante, se ve nítida en cualquier tamaño y no depende de servicios externos.
-
-Para mostrar la tapa real de una edición, cargá su **URL de portada** desde el panel de gestión (campo `imagen_url`). La imagen aparece con un fundido al terminar de cargar y, si el enlace falla, queda la ilustración.
+Cada tarjeta muestra la **tapa real** de la edición. El orden es: la **URL de portada** cargada en el panel de gestión (`imagen_url`) y, si no hay, una búsqueda automática por ISBN y título en Google Books y Open Library. Mientras carga (o si no se encuentra nada) se ve una ilustración SVG según la categoría. Para fijar una tapa exacta, cargá `imagen_url` al crear o editar el producto.
 
 ## Stack
 
@@ -76,10 +74,6 @@ Abrir `http://localhost:3000`. El backend debe permitir CORS desde `http://local
 | `npm run build` | Build de producción |
 | `npm run start` | Sirve el build |
 | `npm run test` | Pruebas con Vitest |
-
-## Despliegue
-
-Guía paso a paso en [DEPLOYMENT.md](DEPLOYMENT.md): API Django con PostgreSQL, frontend en Vercel y CORS.
 
 ## Equipo
 

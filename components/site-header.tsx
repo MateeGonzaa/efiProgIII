@@ -8,13 +8,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Icon } from "@/components/icon";
 import { slugify } from "@/lib/utils";
 
-const links = [{ href: "/catalogo", label: "Catálogo", cat: "" }, { href: "/catalogo?categoria=manga", label: "Manga", cat: "manga" }, { href: "/catalogo?categoria=comics", label: "Cómics", cat: "comic" }, { href: "/catalogo?categoria=fantasia", label: "Fantasía", cat: "fantasia" }];
+const links = [{ href: "/catalogo", label: "Catálogo", cat: "" }, { href: "/catalogo?categoria=manga", label: "Manga", cat: "manga" }, { href: "/catalogo?categoria=comics", label: "Cómics", cat: "comic" }, { href: "/catalogo?categoria=libros", label: "Libros", cat: "libros" }];
 
 function NavLinks({ onNavigate }: { onNavigate: () => void }) {
   const pathname = usePathname();
   const current = slugify(useSearchParams().get("categoria") || "");
   return <>{links.map((link) => {
-    const active = pathname.startsWith("/catalogo") && (link.cat ? current.startsWith(link.cat) : !current);
+    const active = pathname.startsWith("/catalogo") && (link.cat ? current.startsWith(link.cat) || (link.cat === "libros" && current.startsWith("fant")) : !current);
     return <Link key={link.href} href={link.href} className={active ? "nav-active" : ""} aria-current={active ? "page" : undefined} onClick={onNavigate}>{link.label}</Link>;
   })}</>;
 }

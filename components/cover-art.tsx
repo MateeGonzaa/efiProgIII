@@ -5,7 +5,7 @@ export type CoverKind = "comic" | "manga" | "fantasy";
 export function coverKind(name?: string): CoverKind {
   const n = (name || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   if (n.startsWith("manga")) return "manga";
-  if (n.startsWith("fant")) return "fantasy";
+  if (n.startsWith("fant") || n.startsWith("libro")) return "fantasy";
   return "comic";
 }
 

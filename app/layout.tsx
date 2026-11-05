@@ -8,7 +8,7 @@ const display = Anton({ subsets: ["latin"], weight: "400", variable: "--font-dis
 
 export const metadata: Metadata = {
   title: { default: "La Frikicueva — Archivo de mundos", template: "%s · La Frikicueva" },
-  description: "Cómics, manga y fantasía para quienes leen entre mundos.",
+  description: "Cómics, manga y libros para quienes leen entre mundos.",
   applicationName: "La Frikicueva",
 };
 

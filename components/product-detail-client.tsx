@@ -6,12 +6,12 @@ import type { ProductDetails } from "@/lib/types";
 import { useCart } from "@/components/providers";
 import { ProductCover } from "@/components/product-cover";
 import { Icon } from "@/components/icon";
-import { formatCurrency } from "@/lib/utils";
+import { categoryLabel, formatCurrency } from "@/lib/utils";
 
 export function ProductDetailClient({ product }: { product: ProductDetails }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
-  const category = typeof product.categoria === "object" ? product.categoria.nombre : "Edición de colección";
+  const category = typeof product.categoria === "object" ? categoryLabel(product.categoria.nombre) : "Edición de colección";
   const authors = Array.isArray(product.autores) ? product.autores.map((author) => typeof author === "object" ? author.nombre : "").filter(Boolean).join(", ") : "";
   return <section className="product-detail page-shell">
     <div className="detail-crumb"><Link href="/catalogo">CATÁLOGO</Link><Icon name="chevron" size={13}/><span>FICHA DE OBJETO · {String(product.id).padStart(3, "0")}</span></div>

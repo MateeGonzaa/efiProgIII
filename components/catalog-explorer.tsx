@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getProducts } from "@/lib/api";
-import { filterProducts, slugify } from "@/lib/utils";
+import { categoryLabel, filterProducts, slugify } from "@/lib/utils";
 import type { Category, ProductDetails } from "@/lib/types";
 import { useCart } from "@/components/providers";
 import { ProductGrid } from "@/components/product-grid";
@@ -43,7 +43,7 @@ export function CatalogExplorer({ initialProducts, categories, demo, initialQuer
   const urlKey = (q: string, c: string, o: string, p: number) => {
     const params = apiKey(q, "", o, p);
     const name = categories.find((item) => String(item.id) === c)?.nombre;
-    if (name) params.set("categoria", slugify(name));
+    if (name) params.set("categoria", slugify(categoryLabel(name)));
     return params.toString();
   };
   const loaded = useRef(apiKey(initialQuery, initialCategory, initialSort, initialPage).toString());
@@ -90,7 +90,7 @@ export function CatalogExplorer({ initialProducts, categories, demo, initialQuer
   return <>
     <div className="catalog-controls">
       <label className="catalog-search"><Icon name="search" size={18}/><input type="search" placeholder="Buscá un título, autor o mundo…" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }}/><kbd>⌘ K</kbd></label>
-      <div className="mt-4 flex w-full flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">{[{ id: 0, nombre: "Todo" }, ...categories].map((item) => { const active = String(item.id || "") === category; return <button key={item.id} type="button" aria-pressed={active} className={`category-chip ${active ? "is-active" : ""}`} onClick={() => { setCategory(item.id ? String(item.id) : ""); setPage(1); }}>{item.nombre}</button>; })}</div>
+      <div className="mt-4 flex w-full flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">{[{ id: 0, nombre: "Todo" }, ...categories].map((item) => { const active = String(item.id || "") === category; return <button key={item.id} type="button" aria-pressed={active} className={`category-chip ${active ? "is-active" : ""}`} onClick={() => { setCategory(item.id ? String(item.id) : ""); setPage(1); }}>{categoryLabel(item.nombre)}</button>; })}</div>
       <label className="catalog-sort"><span>ORDENAR</span><select aria-label="Ordenar catálogo" value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="">Recomendados</option><option value="precio">Precio: menor a mayor</option><option value="-precio">Precio: mayor a menor</option><option value="titulo">Título A — Z</option></select></label>
     </div>
     {usingDemo && <ApiBanner/>}

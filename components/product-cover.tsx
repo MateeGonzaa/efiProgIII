@@ -1,22 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { PointerEvent } from "react";
 import type { ProductDetails } from "@/lib/types";
 import { CoverArt, coverKind } from "@/components/cover-art";
+import { findCover } from "@/lib/cover-lookup";
+import { categoryLabel } from "@/lib/utils";
 
 type CoverProduct = Pick<ProductDetails, "id" | "titulo" | "categoria"> & { isbn?: string; imagen_url?: string | null };
 
 /**
- * Portada: ilustración SVG por categoría (instantánea y nítida). Si el admin cargó una URL de imagen,
- * se superpone con un fundido cuando termina de cargar; si falla, queda la ilustración.
+ * Portada: ilustración SVG por categoría mientras carga. Encima se superpone la tapa real:
+ * primero la `imagen_url` cargada en el admin y, si no hay (o falla), la que se busca por ISBN/título.
+ * Si ninguna carga, queda la ilustración.
  */
 export function ProductCover({ product, className = "", priority = false }: { product: CoverProduct; className?: string; priority?: boolean }) {
-  const [loaded, setLoaded] = useState(false);
-  const [broken, setBroken] = useState(false);
+  const [loadedUrl, setLoadedUrl] = useState("");
+  const [failed, setFailed] = useState<string[]>([]);
+  const [found, setFound] = useState<string | null>(null);
   const name = typeof product.categoria === "object" ? product.categoria.nombre : "";
-  const category = name || "Edición de colección";
-  const photo = product.imagen_url && !broken ? product.imagen_url : "";
+  const category = name ? categoryLabel(name) : "Edición de colección";
+  const own = product.imagen_url && !failed.includes(product.imagen_url) ? product.imagen_url : "";
+  const needsLookup = !own;
+  useEffect(() => {
+    if (!needsLookup) return;
+    let active = true;
+    findCover({ titulo: product.titulo, isbn: product.isbn }).then((url) => { if (active) setFound(url); });
+    return () => { active = false; };
+  }, [needsLookup, product.titulo, product.isbn]);
+  const auto = found && !failed.includes(found) ? found : "";
+  const photo = own || auto;
+  const loaded = Boolean(photo) && loadedUrl === photo;
   const tilt = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
     const box = event.currentTarget.getBoundingClientRect();
@@ -39,9 +53,9 @@ export function ProductCover({ product, className = "", priority = false }: { pr
     <span className="cover-edition">EDICIÓN DE COLECCIÓN</span>
     {photo && (
       // eslint-disable-next-line @next/next/no-img-element
-      <img className="cover-photo" data-ready={loaded} src={photo} alt="" loading={priority ? "eager" : "lazy"} decoding="async" referrerPolicy="no-referrer"
-        ref={(el) => { if (el?.complete && el.naturalWidth > 1) setLoaded(true); }}
-        onLoad={(event) => (event.currentTarget.naturalWidth > 1 ? setLoaded(true) : setBroken(true))} onError={() => setBroken(true)} />
+      <img key={photo} className="cover-photo" data-ready={loaded} src={photo} alt="" loading={priority ? "eager" : "lazy"} decoding="async" referrerPolicy="no-referrer"
+        ref={(el) => { if (el?.complete && el.naturalWidth > 1) setLoadedUrl(photo); }}
+        onLoad={(event) => (event.currentTarget.naturalWidth > 1 ? setLoadedUrl(photo) : setFailed((list) => [...list, photo]))} onError={() => setFailed((list) => [...list, photo])} />
     )}
     <span className="cover-spine" aria-hidden="true" />
     <span className="cover-shine" aria-hidden="true" />

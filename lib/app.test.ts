@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
 import { extractApiError } from "@/lib/api";
-import { coverCandidates, matchCategory, coverSearchQuery, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
+import { categoryLabel, coverCandidates, matchCategory, coverSearchQuery, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
 import { mockProducts } from "@/lib/mock-data";
 
 describe("validaciones de formularios", () => {
@@ -50,6 +50,11 @@ describe("categorías por nombre o id", () => {
     expect(matchCategory(cats, "comics")?.id).toBe(7);
     expect(matchCategory(cats, "manga")?.id).toBe(8);
     expect(matchCategory(cats, "fantasia")?.id).toBe(9);
+    expect(matchCategory(cats, "libros")?.id).toBe(9);
+  });
+  it("muestra \"Libros\" en lugar de \"Fantasía Épica\" y no toca las demás", () => {
+    expect(categoryLabel("Fantasía Épica")).toBe("Libros");
+    expect(categoryLabel("Manga")).toBe("Manga");
   });
   it("también acepta el id y devuelve undefined si no existe", () => {
     expect(matchCategory(cats, "8")?.nombre).toBe("Manga");

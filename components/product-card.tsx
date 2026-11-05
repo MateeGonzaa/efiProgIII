@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { ProductDetails } from "@/lib/types";
-import { formatCurrency } from "@/lib/utils";
+import { categoryLabel, formatCurrency } from "@/lib/utils";
 import { ProductCover } from "@/components/product-cover";
 import { Icon } from "@/components/icon";
 
 export function ProductCard({ product, onAdd }: { product: ProductDetails; onAdd?: (product: ProductDetails) => void }) {
-  const category = typeof product.categoria === "object" ? product.categoria.nombre : "Colección";
+  const category = typeof product.categoria === "object" ? categoryLabel(product.categoria.nombre) : "Colección";
   return <article className="product-card">
     <Link href={`/catalogo/${product.id}`} className="product-card-art" aria-label={`Ver ${product.titulo}`}>
       <span className="product-card-index">FC / {String(product.id).padStart(2, "0")}</span>

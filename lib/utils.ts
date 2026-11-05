@@ -8,8 +8,13 @@ export function formatCurrency(value: number | string): string {
   }).format(Number(value) || 0);
 }
 
+/** En la tienda la categoría "Fantasía Épica" del backend se muestra simplemente como "Libros". */
+export function categoryLabel(name: string): string {
+  return slugify(name).startsWith("fant") ? "Libros" : name;
+}
+
 export function categoryName(value: ProductDetails["categoria"] | number | undefined) {
-  return typeof value === "object" && value ? value.nombre : "Edición especial";
+  return typeof value === "object" && value ? categoryLabel(value.nombre) : "Edición especial";
 }
 
 export function getApiMessage(payload: unknown): string {
@@ -44,7 +49,11 @@ export function slugify(value: string): string {
 export function matchCategory<T extends { id: number; nombre: string }>(categories: T[], value: string): T | undefined {
   const v = slugify(value);
   if (!v) return undefined;
-  return categories.find((c) => String(c.id) === value.trim() || slugify(c.nombre) === v || slugify(c.nombre).startsWith(v) || `${slugify(c.nombre)}s` === v);
+  return categories.find((c) => {
+    if (String(c.id) === value.trim()) return true;
+    // Se compara con el nombre del backend y con el que ve el usuario ("libros", "fantasia" o "fantasia-epica" sirven igual).
+    return [slugify(c.nombre), slugify(categoryLabel(c.nombre))].some((s) => s === v || s.startsWith(v) || `${s}s` === v);
+  });
 }
 
 /** Fuentes directas de portada, en orden de prioridad: URL cargada en el admin y portada de Open Library por ISBN. */
@@ -60,4 +69,3 @@ export function coverCandidates(product: { isbn?: string; imagen_url?: string | 
 export function coverSearchQuery(title: string): string {
   return title.replace(/\b(vol(umen)?|tomo|n[º°])\.?\s*\d+/gi, " ").replace(/[:·–—-]/g, " ").replace(/\s+/g, " ").trim();
 }
-
