@@ -5,3 +5,6 @@ out/
 .env*
 !.env.example
 work/
+
+.AGENTS
+.DEPLOYMENT
