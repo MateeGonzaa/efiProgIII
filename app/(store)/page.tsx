@@ -5,6 +5,7 @@ import type { ProductDetails } from "@/lib/types";
 import { ApiBanner } from "@/components/status";
 import { ProductShelf } from "@/components/product-shelf";
 import { SectionHeading } from "@/components/section-heading";
+import { Marquee } from "@/components/marquee";
 import { ProductCover } from "@/components/product-cover";
 import { Icon } from "@/components/icon";
 
@@ -39,6 +40,8 @@ export default async function HomePage() {
       </div>
       <div className="hero-footer"><span>BAJÁ LA GUARDIA. ABRÍ UN LIBRO.</span><span>SCROLL PARA DESCUBRIR <i/></span></div>
     </section>
+
+    <Marquee products={products}/>
 
     <section className="manifesto-strip"><div><span>01</span><strong>Historias con carácter</strong><small>Elegidas para quedarse.</small></div><div><span>02</span><strong>Universos infinitos</strong><small>Una página más y listo.</small></div><div><span>03</span><strong>De la cueva a tu casa</strong><small>Envíos a todo el país.</small></div><Icon name="spark" size={22}/></section>
 

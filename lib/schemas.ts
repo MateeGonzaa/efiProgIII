@@ -19,6 +19,11 @@ export const productSchema = z.object({
   categoria: z.coerce.number().int().positive("Elegí una categoría."),
   editorial: z.coerce.number().int().positive("Elegí una editorial."),
   autores: z.array(z.coerce.number().int().positive()).min(1, "Elegí al menos un autor."),
+<<<<<<< HEAD
+=======
+  imagen_url: z.string().url("Ingresá una URL válida (https://…).").optional().or(z.literal("")),
+  imagen_url: z.string().url("Ingresá una URL válida (https://…).").max(500).optional().or(z.literal("")),
+>>>>>>> 49101bf (mejoras efi)
   stock: z.coerce.number().int("Ingresá un número entero.").min(0, "El stock no puede ser negativo."),
   pasillo: z.string().min(1, "Indicá el pasillo.").max(10, "Máximo 10 caracteres."),
 });

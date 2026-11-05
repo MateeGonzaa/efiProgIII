@@ -6,10 +6,12 @@ export type Product = {
   id: number;
   titulo: string;
   isbn: string;
+  imagen_url?: string | null;
   precio: string | number;
   categoria: Category | number;
   editorial: Publisher | number;
   autores: Author[] | number[];
+  imagen_url?: string | null;
   stock?: number | null;
 };
 
