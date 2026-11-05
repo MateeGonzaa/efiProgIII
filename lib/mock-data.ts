@@ -18,10 +18,10 @@ const authors: Author[] = [
 ];
 
 export const mockProducts: ProductDetails[] = [
-  { id: 1, titulo: "Spider-Man: La última cacería", isbn: "978-84-1101-000-1", precio: 15500, categoria: mockCategories[0], editorial: panini, autores: [authors[0]], stock: 10 },
-  { id: 2, titulo: "One Piece · Romance Dawn", isbn: "978-84-1101-000-2", precio: 8000, categoria: mockCategories[1], editorial: ivrea, autores: [authors[1]], stock: 25 },
-  { id: 3, titulo: "La Comunidad del Anillo", isbn: "978-84-450-0066-3", precio: 28000, categoria: mockCategories[2], editorial: minotauro, autores: [authors[2]], stock: 5 },
-  { id: 4, titulo: "Berserk · Tomo 1", isbn: "978-84-1101-000-4", precio: 9500, categoria: mockCategories[1], editorial: ivrea, autores: [authors[3]], stock: 12 },
-  { id: 5, titulo: "Dragon Ball · Tomo 1", isbn: "978-84-1101-000-5", precio: 7200, categoria: mockCategories[1], editorial: ivrea, autores: [authors[4]], stock: 30 },
-  { id: 6, titulo: "X-Men: Días del futuro pasado", isbn: "978-84-1101-000-6", precio: 18900, categoria: mockCategories[0], editorial: panini, autores: [authors[0]], stock: 3 },
+  { id: 1, titulo: "Spider-Man: La última cacería", isbn: "978-84-1101-000-1", imagen_url: "/public/portadas/spiderman.webp", precio: 15500, categoria: mockCategories[0], editorial: panini, autores: [authors[0]], stock: 10 },
+  { id: 2, titulo: "One Piece · Romance Dawn", isbn: "978-84-1101-000-2", imagen_url: "/public/portadas/onepiece_1.webp", precio: 8000, categoria: mockCategories[1], editorial: ivrea, autores: [authors[1]], stock: 25 },
+  { id: 3, titulo: "La Comunidad del Anillo", isbn: "978-84-450-0066-3", imagen_url: "/public/portadas/señordelosanillos_1.webp", precio: 28000, categoria: mockCategories[2], editorial: minotauro, autores: [authors[2]], stock: 5 },
+  { id: 4, titulo: "Berserk · Tomo 1", isbn: "978-84-1101-000-4", imagen_url: "/public/portadas/berserk_1.webp", precio: 9500, categoria: mockCategories[1], editorial: ivrea, autores: [authors[3]], stock: 12 },
+  { id: 5, titulo: "Dragon Ball · Tomo 1", isbn: "978-84-1101-000-5", imagen_url: "/public/portadas/dragonball_1.webp", precio: 7200, categoria: mockCategories[1], editorial: ivrea, autores: [authors[4]], stock: 30 },
+  { id: 6, titulo: "X-Men: Días del futuro pasado", isbn: "978-84-1101-000-6", imagen_url: "/public/portadas/xmen_1.jpeg", precio: 18900, categoria: mockCategories[0], editorial: panini, autores: [authors[0]], stock: 3 },
 ];
