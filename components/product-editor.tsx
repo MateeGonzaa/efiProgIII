@@ -28,10 +28,6 @@ export function ProductEditor({ categories, publishers, authors, product, invent
       editorial: Number(typeof product.editorial === "object" ? product.editorial.id : product.editorial),
       autores: product.autores.map((author) => Number(typeof author === "object" ? author.id : author)),
       imagen_url: product.imagen_url ?? "",
-<<<<<<< HEAD
-=======
-      imagen_url: product.imagen_url ?? "",
->>>>>>> 5897f30 (mejoras efi)
       stock: inventory?.cantidad_disponible ?? product.stock ?? 0,
       pasillo: inventory?.pasillo ?? "",
     } : { autores: [], stock: 0 },
