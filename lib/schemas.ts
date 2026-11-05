@@ -7,7 +7,7 @@ export const loginSchema = z.object({
 
 export const registerSchema = z.object({
   username: z.string().min(3, "Usá al menos 3 caracteres.").max(150, "Máximo 150 caracteres."),
-  email: z.string().email("Ingresá un email válido."),
+  email: z.string().email("Ingresá un mail válido."),
   telefono: z.string().max(20, "Máximo 20 caracteres.").optional().or(z.literal("")),
   password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres."),
 });
@@ -21,7 +21,7 @@ export const productSchema = z.object({
   autores: z.array(z.coerce.number().int().positive()).min(1, "Elegí al menos un autor."),
 
 
-  imagen_url: z.string().refine((value) => value === "" || /^https?:\/\/\S+$/.test(value) || /^\/(?!\/)\S+$/.test(value), "Ingresá un enlace (https://…) o una ruta como /portadas/titulo.jpg.").optional(),
+  imagen_url: z.string().refine((value) => value === "" || /^https?:\/\/\S+$/.test(value) || /^\/(?!\/)\S+$/.test(value), "Ingresá un link (https://…) o una ruta como /portadas/titulo.jpg.").optional(),
   stock: z.coerce.number().int("Ingresá un número entero.").min(0, "El stock no puede ser negativo."),
   pasillo: z.string().min(1, "Indicá el pasillo.").max(10, "Máximo 10 caracteres."),
 });

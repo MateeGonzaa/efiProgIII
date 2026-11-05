@@ -26,8 +26,8 @@ export default async function HomePage() {
       <div className="hero-grid-lines" aria-hidden="true"/>
       <div className="hero-copy">
         <span className="hero-label"><i/> LA TIENDA PARA OTRAS REALIDADES</span>
-        <h1><span>Perdéte.</span><em>Encontráte.</em></h1>
-        <p>Una buena historia abre una puerta. En La Frikicueva, encontrás la llave de tu próximo universo.</p>
+        <h1><span>Perdete.</span><em>Encontrate.</em></h1>
+        <p>Una buena historia abre una puerta. En La Frikicueva tenés la llave de tu próximo universo.</p>
         <div className="hero-actions"><Link href="/catalogo" className="button button-primary">Explorar el archivo <Icon name="arrow" size={17}/></Link><span className="hero-note"><Icon name="spark" size={15}/> Cómics, manga y libros</span></div>
         <div className="hero-index"><span>01 / 03</span><span className="hero-index-line"/><span>UNIVERSOS EN PAPEL</span></div>
       </div>
@@ -56,6 +56,6 @@ export default async function HomePage() {
       <Link href="/catalogo?categoria=libros" className="category-tile category-fantasy"><CoverArt kind="fantasy" seed={2} className="tile-art"/><span className="category-number">03 / MUNDO</span><div><span>LIBROS</span><strong>Novelas para<br/>perderse bien.</strong><small>EXPLORAR LIBROS <Icon name="arrow" size={14}/></small></div><span className="category-symbol">✧</span></Link>
     </div></section>
 
-    <section className="newsletter-section"><div className="newsletter-orbit"/><div><span className="eyebrow">MENSAJE DESDE EL OTRO LADO</span><h2>La próxima gran historia<br/>puede llegar a tu inbox.</h2><p>Novedades, nuevas ediciones y señales de vida desde la cueva.</p></div><form className="newsletter-form" action="mailto:hola@lafrikicueva.com" method="get"><label className="sr-only" htmlFor="newsletter-email">Tu email</label><input id="newsletter-email" type="email" placeholder="tu@email.com" required/><button className="button button-primary" type="submit">Sumarme <Icon name="arrow" size={16}/></button><small>POCO RUIDO. BUENAS HISTORIAS.</small></form></section>
+    <section className="newsletter-section"><div className="newsletter-orbit"/><div><span className="eyebrow">MENSAJE DESDE EL OTRO LADO</span><h2>La próxima gran historia<br/>puede llegar a tu mail.</h2><p>Novedades, nuevas ediciones y señales de vida desde la cueva.</p></div><form className="newsletter-form" action="mailto:hola@lafrikicueva.com" method="get"><label className="sr-only" htmlFor="newsletter-email">Tu mail</label><input id="newsletter-email" type="email" placeholder="tu@mail.com" required/><button className="button button-primary" type="submit">Sumarme <Icon name="arrow" size={16}/></button><small>POCO RUIDO. BUENAS HISTORIAS.</small></form></section>
   </>;
 }

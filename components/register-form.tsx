@@ -22,7 +22,7 @@ export function RegisterForm() {
   return <form className="auth-form" onSubmit={onSubmit} noValidate>
     {apiError && <div className="form-api-error" role="alert"><Icon name="close" size={16}/>{apiError}</div>}
     <FormField label="USUARIO" error={errors.username?.message}><input autoComplete="username" placeholder="Al menos 3 caracteres" {...register("username")}/></FormField>
-    <FormField label="EMAIL" error={errors.email?.message}><input type="email" autoComplete="email" placeholder="vos@ejemplo.com" {...register("email")}/></FormField>
+    <FormField label="MAIL" error={errors.email?.message}><input type="email" autoComplete="email" placeholder="vos@ejemplo.com" {...register("email")}/></FormField>
     <FormField label="TELÉFONO" error={errors.telefono?.message} hint="Opcional · máximo 20 caracteres"><input type="tel" autoComplete="tel" placeholder="351 000 0000" {...register("telefono")}/></FormField>
     <FormField label="CONTRASEÑA" error={errors.password?.message}><input type="password" autoComplete="new-password" placeholder="Mínimo 8 caracteres" {...register("password")}/></FormField>
     <button className="button button-primary auth-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "CREANDO CUENTA…" : "CREAR MI CUENTA"}<Icon name="arrow" size={16}/></button>

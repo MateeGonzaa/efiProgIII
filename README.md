@@ -6,7 +6,7 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 
 - **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
-- **Tablero Kanban:** _pendiente de enlazar_
+- **Tablero Kanban:** _pendiente de linkear_
 - **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
 
 ## Funcionalidades
@@ -27,9 +27,9 @@ Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) pa
 Cada producto muestra su **tapa real** cuando tiene cargado el campo `imagen_url` (desde el panel de gestión, al crear o editar). Acepta dos formas:
 
 - **Imagen descargada:** guardala en `public/portadas/` (por ejemplo `public/portadas/berserk-1.jpg`) y cargá la ruta `/portadas/berserk-1.jpg`. Es lo más estable: no depende de ningún sitio externo.
-- **Enlace:** una URL `https://…` directa a la imagen.
+- **Link:** una URL `https://…` directa a la imagen.
 
-Si el producto no tiene imagen, o el enlace falla, se muestra una ilustración SVG según su categoría (cómic, manga o libros).
+Si el producto no tiene imagen, o el link falla, se muestra una ilustración SVG según su categoría (cómic, manga o libros).
 
 ## Stack
 
