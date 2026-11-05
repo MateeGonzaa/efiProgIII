@@ -77,10 +77,6 @@ Abrir `http://localhost:3000`. El backend debe permitir CORS desde `http://local
 | `npm run start` | Sirve el build |
 | `npm run test` | Pruebas con Vitest |
 
-## Despliegue
-
-Guía paso a paso en [DEPLOYMENT.md](DEPLOYMENT.md): API Django con PostgreSQL, frontend en Vercel y CORS.
-
 ## Equipo
 
 - Lucas Aruza
