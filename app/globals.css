@@ -376,7 +376,7 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 
 /* Portadas */
 .product-cover { position: relative; overflow: hidden; isolation: isolate; }
-.cover-photo { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .6s var(--ease), transform .8s var(--ease); }
+.cover-photo { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .6s var(--ease), transform .8s var(--ease); }
 .cover-photo[data-ready="true"] { opacity: 1; transform: scale(1); }
 .product-cover[data-state="loading"]::before { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.14) 50%, transparent 70%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; }
 .cover-shine { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.22) 50%, transparent 65%); transform: translateX(-120%); transition: transform .9s var(--ease); }
@@ -494,3 +494,13 @@ body::after { position: fixed; inset: 0; z-index: 80; pointer-events: none; cont
 @media (max-width: 700px) { .marquee { font-size: 17px; } }
 .catalog-controls { grid-template-columns: 1fr auto; }
 .catalog-controls > div[role="group"] { grid-column: 1 / -1; order: 3; margin-top: 0; }
+
+/* Portadas ilustradas (SVG) */
+.cover-art { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; }
+.product-cover.has-art::before { background-image: none; }
+.product-cover.has-art::after { z-index: 0; background: linear-gradient(180deg, transparent 38%, rgba(0,0,0,.72) 100%); }
+.product-cover.has-art[data-state="ok"] .cover-title, .product-cover.has-art[data-state="ok"] .cover-kicker, .product-cover.has-art[data-state="ok"] .cover-category, .product-cover.has-art[data-state="ok"] .cover-edition, .product-cover.has-art[data-state="ok"] .cover-frame { opacity: 0; transition: opacity .4s; }
+.tile-art { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; opacity: .55; pointer-events: none; transition: opacity .4s, transform .6s; -webkit-mask-image: linear-gradient(to left, #000 8%, transparent 78%); mask-image: linear-gradient(to left, #000 8%, transparent 78%); }
+.category-tile:hover .tile-art { opacity: .85; transform: scale(1.04); }
+.category-symbol { display: none; }
+.grid-busy { opacity: .55; transition: opacity .2s; pointer-events: none; }

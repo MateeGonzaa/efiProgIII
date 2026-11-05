@@ -1,75 +1,87 @@
-# La Frikicueva — Archivo de mundos
+# La Frikicueva — EFI (Frontend)
 
-Frontend para **La Frikicueva**, una tienda argentina de cómics, manga y fantasía épica. El proyecto consume el backend del grupo, una API REST desarrollada con Django y Django REST Framework. Documentación de la API en local: `http://localhost:8000/api/docs/swagger/` (agregar el enlace del repositorio del grupo antes de entregar).
+Tienda online argentina de **cómics, manga y fantasía épica**. Este repositorio es el **frontend** (Next.js) y consume la API REST del grupo, hecha con Django y Django REST Framework.
 
-La experiencia mezcla una estética de archivo editorial y cómic: negro tinta, papel cálido, acento naranja, portadas conceptuales creadas con CSS, texturas, órbitas y microanimaciones. Los datos del catálogo se cargan desde la API; si todavía no está disponible, se muestra una vista de muestra para poder recorrer el diseño.
+![Portada de La Frikicueva](outputs/portada.png)
+
+- **Aplicación desplegada:** _pendiente de publicar_
+- **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
+- **Tablero Kanban:** _pendiente de enlazar_
+- **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
+
+## Funcionalidades
+
+| Área | Qué incluye |
+| --- | --- |
+| Catálogo | Búsqueda, filtro por categoría (Cómic, Manga, Fantasía Épica), orden por precio/título y paginación, todo conectado a los filtros del backend. La URL se puede compartir (`/catalogo?categoria=manga`). |
+| Fichas | Detalle de cada edición (`/catalogo/[id]`) con autores, editorial, stock y portada. |
+| Carrito y pedidos | Carrito, checkout básico, listado, detalle y cancelación de pedidos. |
+| Cuenta | Registro, login/logout con token, perfil de cliente. |
+| Gestión (staff) | CRUD de productos (`GET`, `POST`, `PATCH`, `DELETE /api/productos/`) con stock y pasillo. La API solo permite escribir a usuarios staff. |
+| Experiencia | Tema claro/oscuro, portadas ilustradas, microanimaciones, estados de carga y error, página 404. |
+
+Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) para poder recorrer el diseño.
+
+## Portadas
+
+Cada producto tiene una portada ilustrada en SVG según su categoría (cómic, manga o fantasía): carga al instante, se ve nítida en cualquier tamaño y no depende de servicios externos.
+
+Para mostrar la tapa real de una edición, cargá su **URL de portada** desde el panel de gestión (campo `imagen_url`). La imagen aparece con un fundido al terminar de cargar y, si el enlace falla, queda la ilustración.
 
 ## Stack
 
-- Next.js 16 con App Router y TypeScript.
-- React Server Components para el inicio, fichas y carga inicial del catálogo; Client Components para filtros, sesión, carrito y formularios.
-- Tailwind CSS 4 y CSS modular de aplicación.
-- React Hook Form + Zod para formularios validados.
+- Next.js 16 (App Router) y TypeScript.
+- Server Components para inicio, fichas y primera carga del catálogo; Client Components para filtros, sesión, carrito y formularios.
+- Tailwind CSS 4 + CSS propio.
+- React Hook Form + Zod para formularios.
 - Context API para sesión, tema y carrito.
 - Vitest para pruebas unitarias.
 
-## Requisitos cubiertos
+## Estructura
 
-- Rutas principales para inicio, catálogo, fichas de producto, carrito, login, registro, cuenta, pedidos y gestión.
-- Rutas dinámicas para `/catalogo/[id]`, `/cuenta/pedidos/[id]` y `/admin/productos/[id]/editar`; la sección cuenta y gestión usa layouts anidados.
-- CRUD de productos conectado a `GET`, `POST`, `PATCH` y `DELETE /api/productos/`. La API permite escribir solo a usuarios staff.
-- Búsqueda, categoría, ordenamiento y paginación conectados a los filtros del backend.
-- Login, registro, logout y envío del token `Authorization: Token …` en operaciones protegidas.
-- Gestión de perfil de cliente, checkout básico y listado/detalle/cancelación de pedidos.
-- Estados de carga y error, página 404, y manejo de errores en la sección de catálogo.
+```text
+app/(store)/        rutas: inicio, catálogo, carrito, login, registro, cuenta, admin
+components/         UI reutilizable (catálogo, portadas, header, formularios)
+lib/                cliente de la API, esquemas Zod, utilidades, datos de muestra
+outputs/            capturas para este README
+```
 
 ## Ejecutar en local
 
-1. Instalar Node.js 20.9 o superior.
-2. Instalar dependencias:
-
-   ```bash
-   npm install
-   ```
-
-3. Copiar `.env.example` como `.env.local` y ajustar la URL del backend:
-
-   ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000/api
-   ```
-
-4. Iniciar Django en `http://localhost:8000` y ejecutar la app:
-
-   ```bash
-   npm run dev
-   ```
-
-5. Abrir `http://localhost:3000`.
-
-El backend debe tener CORS habilitado para `http://localhost:3000`. El repositorio del backend incluye el usuario de prueba `cliente_demo` / `demo1234`; completar su perfil desde **Mi perfil** antes de confirmar un pedido.
-
-## Pruebas
+Requisitos: Node.js 20.9 o superior y el backend Django corriendo.
 
 ```bash
-npm run test
+npm install
 ```
 
-Vitest incluye pruebas de validaciones Zod, formato de moneda, búsqueda local y lectura de errores de API.
+Crear `.env.local` con la URL del backend:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+```
+
+```bash
+npm run dev
+```
+
+Abrir `http://localhost:3000`. El backend debe permitir CORS desde `http://localhost:3000`.
+
+**Usuario de prueba:** `cliente_demo` / `demo1234` (lo crea `python populate.py` en el backend). Completá **Mi perfil** antes de confirmar un pedido.
+
+## Scripts
+
+| Comando | Descripción |
+| --- | --- |
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Build de producción |
+| `npm run start` | Sirve el build |
+| `npm run test` | Pruebas con Vitest |
 
 ## Despliegue
 
-La guía detallada está en [DEPLOYMENT.md](DEPLOYMENT.md). Resume cómo publicar la API Django con PostgreSQL y el frontend en Vercel, configurar CORS y comprobar los flujos antes de entregar.
-
-Aplicación desplegada: **pendiente de publicar**.  
-Tablero Kanban: **pendiente de enlazar**.
+Guía paso a paso en [DEPLOYMENT.md](DEPLOYMENT.md): API Django con PostgreSQL, frontend en Vercel y CORS.
 
 ## Equipo
 
 - Lucas Aruza
 - Mateo Gonzalez
-
-## Capturas
-
-Portada conectada a la API local:
-
-![Portada de La Frikicueva](outputs/portada.png)

@@ -1,13 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useAuth, useCart } from "@/components/providers";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Icon } from "@/components/icon";
+import { slugify } from "@/lib/utils";
 
-const links = [{ href: "/catalogo", label: "Catálogo" }, { href: "/catalogo?categoria=2", label: "Manga" }, { href: "/catalogo?categoria=1", label: "Cómics" }, { href: "/catalogo?categoria=3", label: "Fantasía" }];
+const links = [{ href: "/catalogo", label: "Catálogo", cat: "" }, { href: "/catalogo?categoria=manga", label: "Manga", cat: "manga" }, { href: "/catalogo?categoria=comics", label: "Cómics", cat: "comic" }, { href: "/catalogo?categoria=fantasia", label: "Fantasía", cat: "fantasia" }];
+
+function NavLinks({ onNavigate }: { onNavigate: () => void }) {
+  const pathname = usePathname();
+  const current = slugify(useSearchParams().get("categoria") || "");
+  return <>{links.map((link) => {
+    const active = pathname.startsWith("/catalogo") && (link.cat ? current.startsWith(link.cat) : !current);
+    return <Link key={link.href} href={link.href} className={active ? "nav-active" : ""} aria-current={active ? "page" : undefined} onClick={onNavigate}>{link.label}</Link>;
+  })}</>;
+}
 
 export function SiteHeader() {
   const { session, signOut } = useAuth();
@@ -22,10 +32,10 @@ export function SiteHeader() {
       <div className="header-inner">
         <button className="icon-button mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}><Icon name={menuOpen ? "close" : "menu"}/></button>
         <Link href="/" className="brand" aria-label="La Frikicueva, inicio"><span className="brand-mark"><Icon name="book" size={22}/></span><span>LA FRIKICUEVA<small>ARCHIVO DE MUNDOS</small></span></Link>
-        <nav className={`main-nav ${menuOpen ? "nav-open" : ""}`} aria-label="Navegación principal">{links.map((link) => <Link key={link.href} href={link.href} className={pathname.startsWith("/catalogo") && link.href === "/catalogo" ? "nav-active" : ""} onClick={() => setMenuOpen(false)}>{link.label}</Link>)}</nav>
+        <nav className={`main-nav ${menuOpen ? "nav-open" : ""}`} aria-label="Navegación principal"><Suspense fallback={links.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}><NavLinks onNavigate={() => setMenuOpen(false)}/></Suspense></nav>
         <div className="header-actions"><ThemeToggle/>
           {session ? <div className="account-menu">{session.isStaff && <Link href="/admin/productos" className="icon-button" title="Administrar productos" aria-label="Administración"><Icon name="layers" size={18}/></Link>}<Link href="/cuenta/pedidos" className="icon-button" title={`Hola, ${session.username}`} aria-label="Mi cuenta"><Icon name="user" size={18}/></Link><button className="icon-button logout-button" onClick={logout} title="Cerrar sesión" aria-label="Cerrar sesión"><Icon name="logout" size={17}/></button></div> : <Link className="icon-button account-link" href={`/login?next=${encodeURIComponent(pathname)}`} aria-label="Ingresar"><Icon name="user" size={18}/></Link>}
-          <Link href="/carrito" className="cart-link" aria-label={`Carrito, ${count} productos`}><Icon name="bag" size={19}/><span className="cart-count">{count}</span><span className="cart-copy">CARRITO</span></Link>
+          <Link href="/carrito" className="cart-link" aria-label={`Carrito, ${count} productos`}><Icon name="bag" size={19}/><span key={count} className="cart-count">{count}</span><span className="cart-copy">CARRITO</span></Link>
         </div>
       </div>
     </header>
