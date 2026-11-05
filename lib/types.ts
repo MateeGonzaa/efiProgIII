@@ -11,7 +11,6 @@ export type Product = {
   categoria: Category | number;
   editorial: Publisher | number;
   autores: Author[] | number[];
-  imagen_url?: string | null;
   stock?: number | null;
 };
 
