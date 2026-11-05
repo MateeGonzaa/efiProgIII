@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
 import { extractApiError } from "@/lib/api";
+<<<<<<< HEAD
 import { filterProducts, matchCategory, formatCurrency, getApiMessage } from "@/lib/utils";
+=======
+import { coverCandidates, coverSearchQuery, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
+>>>>>>> 5897f30 (mejoras efi)
 import { mockProducts } from "@/lib/mock-data";
 
 describe("validaciones de formularios", () => {
@@ -44,6 +48,7 @@ describe("errores de la API", () => {
   });
 });
 
+<<<<<<< HEAD
 describe("categorías por nombre o id", () => {
   const cats = [{ id: 7, nombre: "Cómic" }, { id: 8, nombre: "Manga" }, { id: 9, nombre: "Fantasía Épica" }];
   it("resuelve slugs del menú aunque los ids cambien", () => {
@@ -56,3 +61,20 @@ describe("categorías por nombre o id", () => {
     expect(matchCategory(cats, "terror")).toBeUndefined();
   });
 });
+=======
+describe("portadas de los productos", () => {
+  it("prioriza la URL cargada y luego el ISBN", () => {
+    const urls = coverCandidates({ imagen_url: "https://x.com/a.jpg", isbn: "978-84-450-0066-3" });
+    expect(urls[0]).toBe("https://x.com/a.jpg");
+    expect(urls[1]).toContain("9788445000663");
+  });
+
+  it("no inventa fuentes si no hay datos", () => {
+    expect(coverCandidates({ isbn: "123" })).toEqual([]);
+  });
+
+  it("limpia el título para buscar la portada", () => {
+    expect(coverSearchQuery("One Piece Vol. 1: Romance Dawn")).toBe("One Piece Romance Dawn");
+  });
+});
+>>>>>>> 5897f30 (mejoras efi)
