@@ -4,7 +4,7 @@ Tienda online argentina de **cómics, manga y fantasía épica**. Este repositor
 
 ![Portada de La Frikicueva](outputs/portada.png)
 
-- **Aplicación desplegada:** _pendiente de publicar_
+- **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
 - **Tablero Kanban:** _pendiente de enlazar_
 - **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
