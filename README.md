@@ -2,8 +2,6 @@
 
 Tienda online argentina de **cómics, manga y libros**. Este repositorio es el **frontend** (Next.js) y consume la API REST del grupo, hecha con Django y Django REST Framework.
 
-![Portada de La Frikicueva](outputs/portada.png)
-
 - **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
 - **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
