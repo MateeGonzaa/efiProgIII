@@ -27,7 +27,7 @@ export function LoginForm({ nextPath = "/cuenta/pedidos" }: { nextPath?: string 
     {apiError && <div className="form-api-error" role="alert"><Icon name="close" size={16}/>{apiError}</div>}
     <FormField label="USUARIO" error={errors.username?.message}><input autoComplete="username" placeholder="Tu nombre de usuario" {...register("username")}/></FormField>
     <FormField label="CONTRASEÑA" error={errors.password?.message}><div className="password-input"><input type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Tu contraseña" {...register("password")}/><button type="button" onClick={() => setShowPassword((value) => !value)}>{showPassword ? "OCULTAR" : "VER"}</button></div></FormField>
-    <button className="button button-primary auth-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "ENTRANDO…" : "ENTRAR A LA CUEVA"}<Icon name="arrow" size={16}/></button>
+    <button className="button button-primary auth-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "ENTRANDO…" : "INGRESAR"}<Icon name="arrow" size={16}/></button>
     <p className="form-footnote"><Icon name="shield" size={15}/> Tus datos viajan protegidos con autenticación por token.</p>
   </form>;
 }

@@ -25,37 +25,37 @@ export default async function HomePage() {
     <section className="hero-shell">
       <div className="hero-grid-lines" aria-hidden="true"/>
       <div className="hero-copy">
-        <span className="hero-label"><i/> LA TIENDA PARA OTRAS REALIDADES</span>
-        <h1><span>Perdete.</span><em>Encontrate.</em></h1>
-        <p>Una buena historia abre una puerta. En La Frikicueva tenés la llave de tu próximo universo.</p>
-        <div className="hero-actions"><Link href="/catalogo" className="button button-primary">Explorar el archivo <Icon name="arrow" size={17}/></Link><span className="hero-note"><Icon name="spark" size={15}/> Cómics, manga y libros</span></div>
-        <div className="hero-index"><span>01 / 03</span><span className="hero-index-line"/><span>UNIVERSOS EN PAPEL</span></div>
+        <span className="hero-label"><i/> TIENDA DE CÓMICS, MANGA Y LIBROS</span>
+        <h1><span>Leé algo</span><em>que te enganche.</em></h1>
+        <p>Cómics, manga y libros para leer, coleccionar y recomendar. Armá tu pedido y te lo mandamos a donde estés.</p>
+        <div className="hero-actions"><Link href="/catalogo" className="button button-primary">Ver el catálogo <Icon name="arrow" size={17}/></Link><span className="hero-note"><Icon name="spark" size={15}/> Cómics, manga y libros</span></div>
+        <div className="hero-index"><span>01 / 03</span><span className="hero-index-line"/><span>TINTA Y PAPEL</span></div>
       </div>
-      <div className="hero-art" aria-label="Selección de historias ilustradas">
-        <div className="orbit orbit-one"/><div className="orbit orbit-two"/><span className="orbit-coord">31°25&apos;S<br/>64°11&apos;W</span>
+      <div className="hero-art" aria-label="Portadas destacadas">
+        <div className="orbit orbit-one"/><div className="orbit orbit-two"/><span className="orbit-coord">CÓRDOBA<br/>ARGENTINA</span>
         <div className="hero-cover hero-cover-back"><ProductCover product={products[1] ?? mockProducts[1]}/></div>
         <div className="hero-cover hero-cover-mid"><ProductCover product={products[3] ?? mockProducts[3]}/></div>
         <div className="hero-cover hero-cover-front"><ProductCover product={feature}/></div>
-        <div className="hero-art-stamp"><span>DESDE</span><strong>EL<br/>OTRO<br/>LADO</strong><small>DEL ESTANTE</small></div>
-        <span className="hero-art-caption">FIG. 001 — PORTALES DE PAPEL</span>
+        <div className="hero-art-stamp"><span>DESDE CÓRDOBA</span><strong>A TODO<br/>EL<br/>PAÍS</strong><small>CON ENVÍO</small></div>
+        <span className="hero-art-caption">ALGUNAS EDICIONES DEL CATÁLOGO</span>
       </div>
-      <div className="hero-footer"><span>BAJÁ LA GUARDIA. ABRÍ UN LIBRO.</span><span>SCROLL PARA DESCUBRIR <i/></span></div>
+      <div className="hero-footer"><span>ELEGÍ, ARMÁ TU PEDIDO Y LEÉ.</span><span>BAJÁ PARA VER MÁS <i/></span></div>
     </section>
 
     <Marquee products={products}/>
 
-    <section className="manifesto-strip"><div><span>01</span><strong>Historias con carácter</strong><small>Elegidas para quedarse.</small></div><div><span>02</span><strong>Universos infinitos</strong><small>Una página más y listo.</small></div><div><span>03</span><strong>De la cueva a tu casa</strong><small>Envíos a todo el país.</small></div><Icon name="spark" size={22}/></section>
+    <section className="manifesto-strip"><div><span>01</span><strong>Todo en un solo lugar</strong><small>Cómics, manga y libros.</small></div><div><span>02</span><strong>Stock a la vista</strong><small>Sabés qué hay antes de pedir.</small></div><div><span>03</span><strong>Envíos a todo el país</strong><small>De Córdoba a tu casa.</small></div><Icon name="spark" size={22}/></section>
 
-    <section className="store-section collection-section"><div className="section-topline"><span>ESTANTERÍA 01 · LO QUE NOS MUEVE</span><span>06 / ∞</span></div><SectionHeading eyebrow="TESOROS DE LA CUEVA" title="Elegidos para vos" body="Un puñado de mundos que vale la pena visitar." action={<Link href="/catalogo" className="text-link">Ver todo el catálogo <Icon name="arrow" size={15}/></Link>}/>{demo && <ApiBanner/>}<ProductShelf products={featured}/></section>
+    <section className="store-section collection-section"><div className="section-topline"><span>ESTANTE 01 · DESTACADOS</span><span>SELECCIÓN DE LA CASA</span></div><SectionHeading eyebrow="DESTACADOS" title="Para ir empezando" body="Una selección del catálogo para arrancar." action={<Link href="/catalogo" className="text-link">Ver todo el catálogo <Icon name="arrow" size={15}/></Link>}/>{demo && <ApiBanner/>}<ProductShelf products={featured}/></section>
 
-    <section className="feature-spread"><div className="feature-copy"><span className="eyebrow">LA HISTORIA DESTACADA · Nº 03</span><h2>Las grandes aventuras empiezan con una página.</h2><p>Hay mundos que te esperan en silencio. Historias llenas de mapas imposibles, héroes improbables y finales que todavía no conocés.</p><Link href={`/catalogo/${feature.id}`} className="feature-link">Descubrir esta edición <Icon name="arrow" size={16}/></Link><div className="feature-stamp">LECTURAS<br/><strong>QUE<br/>DEJAN<br/>MARCA</strong><span>FC · 2026</span></div></div><div className="feature-visual"><ProductCover product={feature}/><span className="feature-orbit-label">OBJETO DE COLECCIÓN<br/>SERIE 001 — ARGENTINA</span><span className="feature-index">[ 03 — 06 ]</span></div></section>
+    <section className="feature-spread"><div className="feature-copy"><span className="eyebrow">EDICIÓN DESTACADA</span><h2>{feature.titulo}</h2><p>Una edición del catálogo para sumar a tu colección. Mirá el detalle, el precio y cuántos ejemplares quedan.</p><Link href={`/catalogo/${feature.id}`} className="feature-link">Ver esta edición <Icon name="arrow" size={16}/></Link><div className="feature-stamp">EDICIÓN<br/><strong>PARA<br/>TU<br/>ESTANTE</strong><span>FC · 2026</span></div></div><div className="feature-visual"><ProductCover product={feature}/><span className="feature-orbit-label">EDICIÓN DESTACADA<br/>LA FRIKICUEVA</span><span className="feature-index">[ DESTACADO ]</span></div></section>
 
-    <section className="store-section category-section"><div className="section-topline"><span>HAY UNA HISTORIA PARA VOS</span><span>ELIGÍ TU PORTAL</span></div><SectionHeading eyebrow="TRES PUERTAS DE ENTRADA" title="¿A dónde viajamos?"/><div className="category-grid">
-      <Link href="/catalogo?categoria=comics" className="category-tile category-comic"><CoverArt kind="comic" seed={0} className="tile-art"/><span className="category-number">01 / TINTA</span><div><span>CÓMIC</span><strong>Héroes, mundos<br/>y otras leyendas.</strong><small>EXPLORAR CÓMICS <Icon name="arrow" size={14}/></small></div><span className="category-symbol">✳</span></Link>
-      <Link href="/catalogo?categoria=manga" className="category-tile category-manga"><CoverArt kind="manga" seed={1} className="tile-art"/><span className="category-number">02 / TRAZO</span><div><span>MANGA</span><strong>Una viñeta más.<br/>Y no paramos.</strong><small>EXPLORAR MANGA <Icon name="arrow" size={14}/></small></div><span className="category-symbol">◈</span></Link>
-      <Link href="/catalogo?categoria=libros" className="category-tile category-fantasy"><CoverArt kind="fantasy" seed={2} className="tile-art"/><span className="category-number">03 / MUNDO</span><div><span>LIBROS</span><strong>Novelas para<br/>perderse bien.</strong><small>EXPLORAR LIBROS <Icon name="arrow" size={14}/></small></div><span className="category-symbol">✧</span></Link>
+    <section className="store-section category-section"><div className="section-topline"><span>COMPRÁ POR CATEGORÍA</span><span>ELEGÍ UNA</span></div><SectionHeading eyebrow="CATEGORÍAS" title="¿Qué querés leer?"/><div className="category-grid">
+      <Link href="/catalogo?categoria=comics" className="category-tile category-comic"><CoverArt kind="comic" seed={0} className="tile-art"/><span className="category-number">01 / TINTA</span><div><span>CÓMIC</span><strong>Superhéroes y<br/>clásicos de siempre.</strong><small>VER CÓMICS <Icon name="arrow" size={14}/></small></div><span className="category-symbol">✳</span></Link>
+      <Link href="/catalogo?categoria=manga" className="category-tile category-manga"><CoverArt kind="manga" seed={1} className="tile-art"/><span className="category-number">02 / TRAZO</span><div><span>MANGA</span><strong>Un tomo más<br/>y me voy a dormir.</strong><small>VER MANGA <Icon name="arrow" size={14}/></small></div><span className="category-symbol">◈</span></Link>
+      <Link href="/catalogo?categoria=libros" className="category-tile category-fantasy"><CoverArt kind="fantasy" seed={2} className="tile-art"/><span className="category-number">03 / PÁGINAS</span><div><span>LIBROS</span><strong>Fantasía, ciencia<br/>ficción y sagas.</strong><small>VER LIBROS <Icon name="arrow" size={14}/></small></div><span className="category-symbol">✧</span></Link>
     </div></section>
 
-    <section className="newsletter-section"><div className="newsletter-orbit"/><div><span className="eyebrow">MENSAJE DESDE EL OTRO LADO</span><h2>La próxima gran historia<br/>puede llegar a tu mail.</h2><p>Novedades, nuevas ediciones y señales de vida desde la cueva.</p></div><form className="newsletter-form" action="mailto:hola@lafrikicueva.com" method="get"><label className="sr-only" htmlFor="newsletter-email">Tu mail</label><input id="newsletter-email" type="email" placeholder="tu@mail.com" required/><button className="button button-primary" type="submit">Sumarme <Icon name="arrow" size={16}/></button><small>POCO RUIDO. BUENAS HISTORIAS.</small></form></section>
+    <section className="newsletter-section"><div className="newsletter-orbit"/><div><span className="eyebrow">NOVEDADES</span><h2>Enterate primero<br/>de lo que llega.</h2><p>Dejanos tu mail y te avisamos cuando haya nuevas ediciones y novedades.</p></div><form className="newsletter-form" action="mailto:hola@lafrikicueva.com" method="get"><label className="sr-only" htmlFor="newsletter-email">Tu mail</label><input id="newsletter-email" type="email" placeholder="tu@mail.com" required/><button className="button button-primary" type="submit">Sumarme <Icon name="arrow" size={16}/></button><small>SIN SPAM. SOLO NOVEDADES.</small></form></section>
   </>;
 }

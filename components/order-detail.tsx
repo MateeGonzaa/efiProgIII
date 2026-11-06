@@ -49,10 +49,10 @@ export function OrderDetail() {
     finally { setWorking(false); }
   };
 
-  if (loading) return <div className="account-loading"><span className="loading-orbit"/>ABRIENDO EL PEDIDO…</div>;
+  if (loading) return <div className="account-loading"><span className="loading-orbit"/>CARGANDO PEDIDO…</div>;
   if (error && !order) return <div className="account-card"><ErrorNotice message={error}/><BackLink href="/cuenta/pedidos"/></div>;
   if (!order) return null;
-  return <div className="account-card order-detail-card"><BackLink href="/cuenta/pedidos"/><div className="order-detail-head"><div><span className="eyebrow">ORDEN · {new Intl.DateTimeFormat("es-AR", { dateStyle: "long" }).format(new Date(order.fecha_creacion))}</span><h2>Pedido <em>#{String(order.id).padStart(5, "0")}</em></h2></div><span className={`order-status status-${order.estado.toLowerCase()}`}><i/>{labels[order.estado]}</span></div>
+  return <div className="account-card order-detail-card"><BackLink href="/cuenta/pedidos"/><div className="order-detail-head"><div><span className="eyebrow">FECHA · {new Intl.DateTimeFormat("es-AR", { dateStyle: "long" }).format(new Date(order.fecha_creacion))}</span><h2>Pedido <em>#{String(order.id).padStart(5, "0")}</em></h2></div><span className={`order-status status-${order.estado.toLowerCase()}`}><i/>{labels[order.estado]}</span></div>
     {error && <ErrorNotice message={error}/>}
     <div className="order-items">{(order.detalles ?? []).map((line) => <div className="order-item" key={line.id}><div className="order-item-icon"><Icon name="book" size={20}/></div><div><Link href={`/catalogo/${line.producto}`}>{products[line.producto]?.titulo ?? `Edición #${line.producto}`}</Link><span>{line.cantidad} × {formatCurrency(line.precio_unitario)}</span></div><strong>{formatCurrency(Number(line.precio_unitario) * line.cantidad)}</strong></div>)}</div>
     <div className="order-summary"><span>TOTAL DEL PEDIDO</span><strong>{formatCurrency(order.total)}</strong></div>

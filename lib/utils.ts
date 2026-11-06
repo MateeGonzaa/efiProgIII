@@ -41,6 +41,17 @@ export function filterProducts(products: ProductDetails[], search: string) {
 }
 
 
+/**
+ * Deja la ruta de una portada lista para el navegador. Acepta links (https://…), "/portadas/x.jpg"
+ * y también las variantes que se cuelan al cargar a mano: "portadas/x.jpg", "./portadas/x.jpg" o "public/portadas/x.jpg".
+ */
+export function imageSrc(value?: string | null): string {
+  const raw = (value ?? "").trim();
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:")) return raw;
+  return "/" + raw.replace(/\\/g, "/").replace(/^\.?\/?(public\/)?/, "");
+}
+
 export function slugify(value: string): string {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }

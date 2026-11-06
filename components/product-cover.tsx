@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { PointerEvent } from "react";
 import type { ProductDetails } from "@/lib/types";
 import { CoverArt, coverKind } from "@/components/cover-art";
-import { categoryLabel } from "@/lib/utils";
+import { categoryLabel, imageSrc } from "@/lib/utils";
 
 type CoverProduct = Pick<ProductDetails, "id" | "titulo" | "categoria"> & { isbn?: string; imagen_url?: string | null };
 
@@ -17,8 +17,9 @@ export function ProductCover({ product, className = "", priority = false }: { pr
   const [loadedUrl, setLoadedUrl] = useState("");
   const [failed, setFailed] = useState<string[]>([]);
   const name = typeof product.categoria === "object" ? product.categoria.nombre : "";
-  const category = name ? categoryLabel(name) : "Edición de colección";
-  const photo = product.imagen_url && !failed.includes(product.imagen_url) ? product.imagen_url : "";
+  const category = name ? categoryLabel(name) : "Edición";
+  const src = imageSrc(product.imagen_url);
+  const photo = src && !failed.includes(src) ? src : "";
   const loaded = Boolean(photo) && loadedUrl === photo;
   const tilt = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
@@ -36,10 +37,10 @@ export function ProductCover({ product, className = "", priority = false }: { pr
   return <div className={`product-cover has-art ${className}`} data-state={photo && loaded ? "ok" : "art"} role="img" aria-label={`Portada de ${product.titulo}`} onPointerMove={tilt} onPointerLeave={untilt}>
     <CoverArt kind={coverKind(name)} seed={product.id} />
     <span className="cover-frame" />
-    <span className="cover-kicker">FRIKICUEVA · ARCHIVO {String(product.id).padStart(2, "0")}</span>
+    <span className="cover-kicker">FRIKICUEVA · Nº {String(product.id).padStart(2, "0")}</span>
     <span className="cover-title">{product.titulo}</span>
     <span className="cover-category">{category}</span>
-    <span className="cover-edition">EDICIÓN DE COLECCIÓN</span>
+    <span className="cover-edition">LA FRIKICUEVA</span>
     {photo && (
       // eslint-disable-next-line @next/next/no-img-element
       <img key={photo} className="cover-photo" data-ready={loaded} src={photo} alt="" loading={priority ? "eager" : "lazy"} decoding="async" referrerPolicy="no-referrer"

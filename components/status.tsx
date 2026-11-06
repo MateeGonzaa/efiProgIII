@@ -2,12 +2,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icon";
 
-export function ApiBanner({ children = "Vista de muestra · conectá la API para ver el catálogo en vivo" }: { children?: ReactNode }) {
+export function ApiBanner({ children = "Vista de muestra · no hay conexión con la API, mostramos datos de ejemplo" }: { children?: ReactNode }) {
   return <div className="api-banner flex items-center gap-2"><span className="api-pulse" />{children}</div>;
 }
 
 export function ErrorNotice({ message, onRetry }: { message: string; onRetry?: () => void }) {
-  return <div className="error-notice flex items-center justify-between gap-4" role="alert"><div><strong>Se cortó la señal.</strong><p>{message}</p></div>{onRetry && <button className="button button-secondary" onClick={onRetry}>Reintentar</button>}</div>;
+  return <div className="error-notice flex items-center justify-between gap-4" role="alert"><div><strong>Algo salió mal.</strong><p>{message}</p></div>{onRetry && <button className="button button-secondary" onClick={onRetry}>Reintentar</button>}</div>;
 }
 
 export function EmptyState({ icon = "book", title, body, action }: { icon?: "book" | "bag" | "search"; title: string; body: string; action?: ReactNode }) {

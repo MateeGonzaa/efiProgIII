@@ -89,14 +89,14 @@ export function CatalogExplorer({ initialProducts, categories, demo, initialQuer
   const shown = usingDemo ? filteredDemo : products;
   return <>
     <div className="catalog-controls">
-      <label className="catalog-search"><Icon name="search" size={18}/><input type="search" placeholder="Buscá un título, autor o mundo…" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }}/><kbd>⌘ K</kbd></label>
+      <label className="catalog-search"><Icon name="search" size={18}/><input type="search" placeholder="Buscá por título o ISBN…" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }}/><kbd>⌘ K</kbd></label>
       <div className="mt-4 flex w-full flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">{[{ id: 0, nombre: "Todo" }, ...categories].map((item) => { const active = String(item.id || "") === category; return <button key={item.id} type="button" aria-pressed={active} className={`category-chip ${active ? "is-active" : ""}`} onClick={() => { setCategory(item.id ? String(item.id) : ""); setPage(1); }}>{categoryLabel(item.nombre)}</button>; })}</div>
       <label className="catalog-sort"><span>ORDENAR</span><select aria-label="Ordenar catálogo" value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="">Recomendados</option><option value="precio">Precio: menor a mayor</option><option value="-precio">Precio: mayor a menor</option><option value="titulo">Título A — Z</option></select></label>
     </div>
     {usingDemo && <ApiBanner/>}
     {error && <ErrorNotice message={error} onRetry={() => setUsingDemo(false)}/>}
-    <div className="catalog-meta"><span>{usingDemo ? shown.length : count} EDICIONES EN EL ARCHIVO</span><span>{query || category ? "FILTROS ACTIVOS" : "ACTUALIZADO EN TIEMPO REAL"}</span></div>
-    {busy && !shown.length ? <LoadingGrid/> : shown.length ? <div className={busy ? "grid-busy" : ""}><ProductGrid products={shown} onAdd={add}/></div> : <EmptyState icon="search" title="No encontramos esa historia" body="Probá con otro título o quitá alguno de los filtros."/>}
+    <div className="catalog-meta"><span>{usingDemo ? shown.length : count} EDICIONES EN EL CATÁLOGO</span><span>{query || category ? "FILTROS ACTIVOS" : "TODO EL CATÁLOGO"}</span></div>
+    {busy && !shown.length ? <LoadingGrid/> : shown.length ? <div className={busy ? "grid-busy" : ""}><ProductGrid products={shown} onAdd={add}/></div> : <EmptyState icon="search" title="No encontramos nada con esa búsqueda" body="Probá con otro título o quitá alguno de los filtros."/>}
     {!usingDemo && <div className="pagination"><button className="button button-quiet" onClick={() => setPage((value) => Math.max(1, value - 1))} disabled={page <= 1 || busy}>Anterior</button><span>PÁGINA <strong>{page}</strong></span><button className="button button-quiet" onClick={() => setPage((value) => value + 1)} disabled={page * 10 >= count || busy}>Siguiente <Icon name="arrow" size={14}/></button></div>}
   </>;
 }

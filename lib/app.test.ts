@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
 import { extractApiError } from "@/lib/api";
-import { categoryLabel, matchCategory, filterProducts, formatCurrency, getApiMessage } from "@/lib/utils";
+import { categoryLabel, matchCategory, filterProducts, formatCurrency, getApiMessage, imageSrc } from "@/lib/utils";
 import { mockProducts } from "@/lib/mock-data";
 
 describe("validaciones de formularios", () => {
@@ -70,5 +70,19 @@ describe("portada del producto", () => {
   it("acepta la portada vacía y rechaza textos sueltos", () => {
     expect(productSchema.safeParse({ ...base, imagen_url: "" }).success).toBe(true);
     expect(productSchema.safeParse({ ...base, imagen_url: "tapa.jpg" }).success).toBe(false);
+  });
+});
+describe("ruta de la portada", () => {
+  it("normaliza rutas de public/portadas aunque vengan mal escritas", () => {
+    expect(imageSrc("/portadas/berserk-1.jpg")).toBe("/portadas/berserk-1.jpg");
+    expect(imageSrc("portadas/berserk-1.jpg")).toBe("/portadas/berserk-1.jpg");
+    expect(imageSrc("./portadas/berserk-1.jpg")).toBe("/portadas/berserk-1.jpg");
+    expect(imageSrc("public/portadas/berserk-1.jpg")).toBe("/portadas/berserk-1.jpg");
+    expect(imageSrc("/public/portadas/berserk-1.jpg")).toBe("/portadas/berserk-1.jpg");
+  });
+  it("no toca los links ni las portadas vacías", () => {
+    expect(imageSrc("https://sitio.com/tapa.jpg")).toBe("https://sitio.com/tapa.jpg");
+    expect(imageSrc("")).toBe("");
+    expect(imageSrc(null)).toBe("");
   });
 });

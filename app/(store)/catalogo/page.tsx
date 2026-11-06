@@ -36,8 +36,8 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
   }
 
   return <section className="catalog-page page-shell">
-    <div className="catalog-hero"><div><span className="eyebrow">ARCHIVO CENTRAL · ESTANTE A—Z</span><h1>El <em>catálogo.</em></h1><p>Todo lo que hace vibrar la imaginación, reunido en una sola cueva.</p></div><div className="catalog-big-index"><span>INVENTARIO</span><strong>{String(products.length).padStart(2, "0")}</strong><small>HISTORIAS ACTIVAS</small></div></div>
-    <div className="catalog-hairline"><span>BUSCÁ TU PRÓXIMA OBSESIÓN</span><span>FILTRO DE FRECUENCIA · ON</span></div>
+    <div className="catalog-hero"><div><span className="eyebrow">CÓMICS · MANGA · LIBROS</span><h1>El <em>catálogo.</em></h1><p>Buscá por título o ISBN, filtrá por categoría y sumá lo que quieras al carrito.</p></div><div className="catalog-big-index"><span>CATÁLOGO</span><strong>{String(products.length).padStart(2, "0")}</strong><small>TÍTULOS EN LISTA</small></div></div>
+    <div className="catalog-hairline"><span>BUSCÁ TU PRÓXIMA LECTURA</span><span>FILTRÁ POR CATEGORÍA Y PRECIO</span></div>
     <CatalogExplorer initialProducts={products} categories={categories} demo={demo} initialQuery={initialQuery} initialCategory={initialCategory} initialSort={initialSort} initialPage={initialPage}/>
   </section>;
 }

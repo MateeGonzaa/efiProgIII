@@ -7,8 +7,8 @@ import "./globals.css";
 const display = Anton({ subsets: ["latin"], weight: "400", variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "La Frikicueva — Archivo de mundos", template: "%s · La Frikicueva" },
-  description: "Cómics, manga y libros para quienes leen entre mundos.",
+  title: { default: "La Frikicueva — Cómics, manga y libros", template: "%s · La Frikicueva" },
+  description: "Tienda online de cómics, manga y libros. Envíos a todo el país desde Córdoba.",
   applicationName: "La Frikicueva",
 };
 

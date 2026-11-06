@@ -14,6 +14,6 @@ export function AuthGate({ children, admin = false }: { children: ReactNode; adm
     if (!session) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
     else if (admin && !session.isStaff) router.replace("/cuenta/pedidos");
   }, [ready, session, router, pathname, admin]);
-  if (!ready || !session || (admin && !session.isStaff)) return <div className="auth-loading"><span className="loading-orbit"/><span>{admin ? "VERIFICANDO ACCESO…" : "ABRIENDO TU CUENTA…"}</span></div>;
+  if (!ready || !session || (admin && !session.isStaff)) return <div className="auth-loading"><span className="loading-orbit"/><span>{admin ? "VERIFICANDO ACCESO…" : "CARGANDO TU CUENTA…"}</span></div>;
   return <>{children}</>;
 }
