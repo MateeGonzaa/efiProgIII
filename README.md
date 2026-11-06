@@ -6,7 +6,6 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 
 - **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
-- **Tablero Kanban:** _pendiente de linkear_
 - **Documentación de la API (local):** `http://localhost:8000/api/docs/swagger/`
 
 ## Funcionalidades
