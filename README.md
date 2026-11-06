@@ -90,7 +90,6 @@ Organizamos el trabajo del equipo con un tablero Kanban. Estado final del proyec
 
 **Referencias:** 🟦 Frontend · 🟩 Backend · 🟧 Testing · 🟪 Deploy · ⬜ Docs
 
-🔗 Versión interactiva del tablero: https://claude.ai/artifact/K9BDV4HgMH5JUBt63zfPh9
 
 ## Equipo
 
