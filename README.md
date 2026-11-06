@@ -23,7 +23,6 @@ Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) pa
 
 Cada producto muestra su **tapa real** cuando tiene cargado el campo `imagen_url` (desde el panel de gestión, al crear o editar). Acepta dos formas:
 
-- **Imagen descargada:** guardala en `public/portadas/` (por ejemplo `public/portadas/berserk-1.jpg`) y cargá la ruta `/portadas/berserk-1.jpg`. Es lo más estable: no depende de ningún sitio externo. Ojo: la carpeta `public/` tiene que estar commiteada en git (si no, Vercel no la publica) y el nombre del archivo tiene que coincidir exacto, con mayúsculas y minúsculas.
 - **Link:** una URL `https://…` directa a la imagen.
 
 Si el producto no tiene imagen, o el link falla, se muestra una ilustración SVG según su categoría (cómic, manga o libros).
