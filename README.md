@@ -80,6 +80,17 @@ Abrir `http://localhost:3000`. El backend debe permitir CORS desde `http://local
 | `npm run start` | Sirve el build |
 | `npm run test` | Pruebas con Vitest |
 
+## Tablero Kanban
+
+Organizamos el trabajo del equipo con un tablero Kanban. Estado final del proyecto:
+
+| 📥 Backlog | 📝 To Do | 🚧 In Progress | 🔍 In Review | ✅ Done |
+|---|---|---|---|---|
+| 🟦 Panel de administración de productos<br><br>🟩 Paginación y ordenamiento en endpoints | 🟦 Carrito de compras<br><br>🟦 Filtros y búsqueda por categoría<br><br>🟧 Aumentar cobertura de tests | ⬜ Completar README.md (instalación, variables, capturas) | 🟦 Mejoras de UI y responsive<br><br>🟧 Tests con Vitest de componentes principales | 🟩 Modelos y API REST con Django REST Framework<br><br>🟩 Autenticación con JWT (login/registro)<br><br>🟦 Setup del proyecto Next.js + TypeScript + Tailwind<br><br>🟦 Catálogo de productos consumiendo la API<br><br>🟦 Detalle de producto<br><br>🟪 Deploy del frontend en Vercel<br><br>🟪 Deploy del backend en Render + Supabase |
+
+**Referencias:** 🟦 Frontend · 🟩 Backend · 🟧 Testing · 🟪 Deploy · ⬜ Docs
+
+
 ## Equipo
 
 - Lucas Aruza
