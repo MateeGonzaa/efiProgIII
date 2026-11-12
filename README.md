@@ -2,8 +2,6 @@
 
 Tienda online argentina de **cómics, manga y libros**. Este repositorio es el **frontend** (Next.js) y consume la API REST del grupo, hecha con Django y Django REST Framework.
 
-![Portada de La Frikicueva](outputs/portada.png)
-
 - **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
 - **Tablero Kanban:** _pendiente de linkear_
@@ -21,6 +19,10 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 | Experiencia | Tema claro/oscuro, portadas ilustradas, microanimaciones, estados de carga y error, página 404. |
 
 Si la API no responde, la tienda muestra una **vista de muestra** (con aviso) para poder recorrer el diseño.
+
+## Capturas
+
+![Portada de La Frikicueva](outputs/portada.png)
 
 ## Portadas
 
@@ -45,7 +47,8 @@ Si el producto no tiene imagen, o el link falla, se muestra una ilustración SVG
 ```text
 app/(store)/        rutas: inicio, catálogo, carrito, login, registro, cuenta, admin
 components/         UI reutilizable (catálogo, portadas, header, formularios)
-lib/                cliente de la API, esquemas Zod, utilidades, datos de muestra
+lib/                cliente de la API, esquemas Zod, utilidades, categorías, menú, datos de muestra
+tests/              pruebas unitarias de componentes, esquemas, menú y categorías
 outputs/            capturas para este README
 ```
 
@@ -70,6 +73,26 @@ npm run dev
 Abrir `http://localhost:3000`. El backend debe permitir CORS desde `http://localhost:3000`.
 
 **Usuario de prueba:** `cliente_demo` / `demo1234` (lo crea `python populate.py` en el backend). Completá **Mi perfil** antes de confirmar un pedido.
+
+## Tests
+
+Las pruebas usan **Vitest** (con jsdom y Testing Library). La configuración está en `vitest.config.mjs` y `vitest.setup.ts`.
+
+```bash
+npm run test
+```
+
+| Archivo | Qué prueba |
+| --- | --- |
+| `lib/app.test.ts` | Esquemas de login, registro y producto, formato de precios, búsqueda, errores de la API, categorías y rutas de portadas |
+| `tests/schemas.test.ts` | Cada regla de Zod por separado (login, registro, perfil, producto) |
+| `tests/navigation.test.ts` | Qué link del menú queda activo según la URL |
+| `tests/categories.test.ts` | Agrupación por categoría, precio inicial y autores de las tarjetas del inicio |
+| `tests/components.test.tsx` | Cambio de tema (Context), campo de formulario, tarjeta de producto y tarjeta de categoría |
+
+## Despliegue
+
+La app se publica en Vercel. En el proyecto de Vercel hay que cargar la variable `NEXT_PUBLIC_API_URL` con la URL pública de la API (sin `localhost`) y volver a desplegar, porque Next.js la incluye al hacer el build.
 
 ## Scripts
 
