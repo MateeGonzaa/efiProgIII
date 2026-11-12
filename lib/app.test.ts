@@ -14,8 +14,10 @@ describe("validaciones de formularios", () => {
   });
 
   it("rechaza un precio de producto igual a cero", () => {
-    const result = productSchema.safeParse({ titulo: "Edición", isbn: "9781234567890", precio: 0, categoria: 1, editorial: 1, autores: [1] });
+    // Se incluyen stock y pasillo para que el único error posible sea el precio.
+    const result = productSchema.safeParse({ titulo: "Edición", isbn: "9781234567890", precio: 0, categoria: 1, editorial: 1, autores: [1], stock: 1, pasillo: "A1" });
     expect(result.success).toBe(false);
+    expect(result.error?.issues.map((issue) => issue.path[0])).toEqual(["precio"]);
   });
 });
 
