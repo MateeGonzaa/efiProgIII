@@ -24,17 +24,14 @@ Si la API no responde, el catálogo público muestra una **vista de muestra** (c
 ## Capturas
 
 ![Portada de La Frikicueva](capturas/portada.png)
-
-<!-- Cuando subas las capturas a la carpeta capturas/, descomentá estas líneas:
 ![Catálogo con filtros](capturas/catalogo.png)
 ![Detalle de una edición](capturas/detalle.png)
 ![Carrito](capturas/carrito.png)
 ![Login](capturas/login.png)
 ![Panel de gestión de productos](capturas/admin-productos.png)
-![Formulario de producto con errores de validación](capturas/admin-formulario.png)
+<!--![Formulario de producto con errores de validación](capturas/admin-formulario.png)-->
 ![Tema claro](capturas/tema-claro.png)
 ![Versión mobile](capturas/mobile.png)
--->
 
 ## Portadas
 
