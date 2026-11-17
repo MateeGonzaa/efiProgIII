@@ -4,4 +4,4 @@ out/
 .vercel/
 .env*
 !.env.example
-work/
+AGENTS.md
