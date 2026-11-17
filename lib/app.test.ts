@@ -44,6 +44,17 @@ describe("errores de la API", () => {
   it("antepone el campo en errores de validación", () => {
     expect(extractApiError({ isbn: ["Ya existe."] })).toBe("isbn: Ya existe.");
   });
+
+  it("no muestra el HTML cuando el servidor devuelve la verificación de Cloudflare", () => {
+    const html = "<!DOCTYPE html><html><head><title>Just a moment...</title></head><body></body></html>";
+    const message = extractApiError(html);
+    expect(message).toContain("verificación de seguridad");
+    expect(message).not.toContain("<");
+  });
+
+  it("acorta las respuestas de texto demasiado largas", () => {
+    expect(extractApiError("x".repeat(500)).length).toBeLessThan(120);
+  });
 });
 
 describe("categorías por nombre o id", () => {

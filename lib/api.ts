@@ -50,7 +50,17 @@ export async function apiRequest<T>(path: string, options: RequestInit & { token
 
 // Saca un mensaje legible del error que devuelve DRF para mostrarlo en el formulario.
 export function extractApiError(payload: unknown): string {
-  if (typeof payload === "string") return payload;
+  if (typeof payload === "string") {
+    const text = payload.trim();
+    // Si el servidor devuelve una página web (por ejemplo la verificación de seguridad de Cloudflare)
+    // no mostramos el HTML: lo reemplazamos por un mensaje corto.
+    if (/<\s*(!doctype|html|head|body)/i.test(text)) {
+      return /just a moment|challenge-platform|cloudflare/i.test(text)
+        ? "El servidor de la API pidió una verificación de seguridad y bloqueó la solicitud. Esperá unos segundos y probá de nuevo."
+        : "El servidor respondió con una página en lugar de datos. Probá de nuevo en un momento.";
+    }
+    return text.length > 200 ? "El servidor respondió con un error inesperado. Probá de nuevo en un momento." : text;
+  }
   if (payload && typeof payload === "object") {
     const record = payload as Record<string, unknown>;
     if (typeof record.detail === "string") return record.detail;
