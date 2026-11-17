@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   applicationName: "La Frikicueva",
 };
 
-export const viewport: Viewport = { themeColor: "#0a0b14", colorScheme: "dark light" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0a0b14", colorScheme: "dark light" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return <html lang="es-AR" className={`${display.variable} ${body.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning><body><StoreProviders>{children}</StoreProviders></body></html>;

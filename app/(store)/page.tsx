@@ -40,7 +40,7 @@ export default async function HomePage() {
 
     <Marquee products={products}/>
 
-    <section className="manifesto-strip"><div><span>01</span><strong>Todo en un solo lugar</strong><small>Cómics, manga y libros.</small></div><div><span>02</span><strong>Stock a la vista</strong><small>Sabés qué hay antes de pedir.</small></div><div><span>03</span><strong>Envíos a todo el país</strong><small>De Córdoba a tu casa.</small></div></section>
+    <section className="manifesto-strip"><div><span>01</span><strong>Todo en un solo lugar</strong><small>Cómics, manga y libros.</small></div><div><span>02</span><strong>Stock a la vista</strong><small>Sabés qué hay antes de pedir.</small></div><div><span>03</span><strong>Envíos a todo el país</strong><small>De Rio Cuarto a tu casa.</small></div></section>
 
     <section className="store-section collection-section"><SectionHeading eyebrow="Destacados" title="Para ir empezando" body="Una selección del catálogo para arrancar." action={<Link href="/catalogo" className="text-link">Ver todo el catálogo <Icon name="arrow" size={15}/></Link>}/>{demo && <ApiBanner/>}<ProductShelf products={featured}/></section>
 

@@ -52,7 +52,7 @@ describe("producto: reglas del alta y la edición", () => {
   it("exige al menos un autor", () => {
     expect(failedFields(productSchema.safeParse({ ...base, autores: [] }))).toEqual(["autores"]);
   });
-  it("rechaza un ISBN demasiado corto", () => {
+  it("rechaza un código de barras demasiado corto", () => {
     expect(failedFields(productSchema.safeParse({ ...base, isbn: "123" }))).toEqual(["isbn"]);
   });
   it("convierte el precio que llega como texto desde el input", () => {

@@ -28,6 +28,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 const CartContext = createContext<CartContextValue | null>(null);
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
+// Acá viven los tres contexts globales (sesión, carrito y tema). Se guardan en localStorage para no perderlos al recargar.
 export function StoreProviders({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
@@ -62,6 +63,7 @@ export function StoreProviders({ children }: { children: ReactNode }) {
     if (ready) localStorage.setItem("frikicueva-theme", theme);
   }, [theme, ready]);
 
+  // Login contra la API: guarda el token y si el usuario es staff, que después se usa para proteger las rutas.
   const signIn = useCallback(async (username: string, password: string) => {
     const result = await apiRequest<{ token: string; usuario: { username: string; is_staff: boolean } }>("auth/login/", {
       method: "POST",

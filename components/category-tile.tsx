@@ -26,7 +26,6 @@ export function CategoryTile({ kind, href, tag, title, description, cta, product
   const price = startingPrice(products);
   const authors = authorNames(products);
   return <Link href={href} className={`cat-tile cat-${kind}`}>
-    <CoverArt kind={kind} seed={seed} className="cat-backdrop"/>
     <div className="cat-stage" aria-hidden={products.length ? undefined : true}>
       {products.length
         ? products.map((product, index) => <div key={product.id} className={`cat-cover cat-cover-${index + 1}`}><ProductCover product={product}/></div>)

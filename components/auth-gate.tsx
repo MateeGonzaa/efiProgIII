@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { useAuth } from "@/components/providers";
 
+// Protege las rutas del front: sin sesión redirige al login (guardando a dónde quería ir) y el admin exige ser staff.
 export function AuthGate({ children, admin = false }: { children: ReactNode; admin?: boolean }) {
   const { session, ready } = useAuth();
   const router = useRouter();

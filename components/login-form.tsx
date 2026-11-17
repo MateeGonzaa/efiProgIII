@@ -15,6 +15,7 @@ export function LoginForm({ nextPath = "/cuenta/pedidos" }: { nextPath?: string 
   const [apiError, setApiError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginValues>({ resolver: zodResolver(loginSchema) });
+  // Zod valida primero; si pasa, se llama a la API y los errores del servidor se muestran arriba del formulario.
   const onSubmit = handleSubmit(async (values) => {
     setApiError("");
     try {

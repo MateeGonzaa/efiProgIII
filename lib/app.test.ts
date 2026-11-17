@@ -65,9 +65,9 @@ describe("categorías por nombre o id", () => {
 });
 describe("portada del producto", () => {
   const base = { titulo: "Edición", isbn: "9781234567890", precio: 100, categoria: 1, editorial: 1, autores: [1], stock: 1, pasillo: "A1" };
-  it("acepta un link https o una ruta de la carpeta public", () => {
+  it("acepta un link https y rechaza rutas de la carpeta public", () => {
     expect(productSchema.safeParse({ ...base, imagen_url: "https://sitio.com/tapa.jpg" }).success).toBe(true);
-    expect(productSchema.safeParse({ ...base, imagen_url: "/portadas/berserk-1.jpg" }).success).toBe(true);
+    expect(productSchema.safeParse({ ...base, imagen_url: "/portadas/berserk-1.jpg" }).success).toBe(false);
   });
   it("acepta la portada vacía y rechaza textos sueltos", () => {
     expect(productSchema.safeParse({ ...base, imagen_url: "" }).success).toBe(true);
