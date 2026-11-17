@@ -89,7 +89,7 @@ export function CatalogExplorer({ initialProducts, categories, demo, initialQuer
   const shown = usingDemo ? filteredDemo : products;
   return <>
     <div className="catalog-controls">
-      <label className="catalog-search"><Icon name="search" size={18}/><input type="search" placeholder="Buscá por título o ISBN…" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }}/><kbd>⌘ K</kbd></label>
+      <label className="catalog-search"><Icon name="search" size={18}/><input type="search" placeholder="Buscá por título o código…" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }}/><kbd>⌘ K</kbd></label>
       <div className="mt-4 flex w-full flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">{[{ id: 0, nombre: "Todo" }, ...categories].map((item) => { const active = String(item.id || "") === category; return <button key={item.id} type="button" aria-pressed={active} className={`category-chip ${active ? "is-active" : ""}`} onClick={() => { setCategory(item.id ? String(item.id) : ""); setPage(1); }}>{categoryLabel(item.nombre)}</button>; })}</div>
       <label className="catalog-sort"><span>ORDENAR</span><select aria-label="Ordenar catálogo" value={sort} onChange={(event) => { setSort(event.target.value); setPage(1); }}><option value="">Recomendados</option><option value="precio">Precio: menor a mayor</option><option value="-precio">Precio: mayor a menor</option><option value="titulo">Título A — Z</option></select></label>
     </div>

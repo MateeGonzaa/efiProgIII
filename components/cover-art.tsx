@@ -11,7 +11,7 @@ export function coverKind(name?: string): CoverKind {
 
 const rnd = (seed: number) => { let s = seed * 9301 + 49297; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; };
 const P = {
-  comic: [["#ff4b2e", "#5a0f1a", "#ffd166"], ["#f2b632", "#c9302c", "#16255a"], ["#2a7fd0", "#0e2347", "#ff5a3c"]],
+  comic: [["#7c3aed", "#1b0b45", "#ffd166"], ["#f2b632", "#c9302c", "#16255a"], ["#2a7fd0", "#0e2347", "#ff5a3c"]],
   manga: [["#1b1b1f", "#050506", "#e0281d"], ["#14414a", "#071014", "#38c7bd"], ["#2a1f1a", "#0a0706", "#f2e6cf"]],
   fantasy: [["#10304a", "#2d6578", "#f0c96a"], ["#2d1a44", "#8a4278", "#f6a65a"], ["#173a26", "#5b8a4c", "#ecdca8"]],
 } as const;

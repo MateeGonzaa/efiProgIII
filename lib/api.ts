@@ -20,6 +20,7 @@ function apiUrl(path: string) {
   return `${API_BASE}/${path.replace(/^\//, "")}`;
 }
 
+// Función base para hablar con la API: agrega el token si hay sesión, arma el JSON y convierte los errores en ApiError.
 export async function apiRequest<T>(path: string, options: RequestInit & { token?: string } = {}): Promise<T> {
   const { token, headers, ...rest } = options;
   let response: Response;
@@ -47,6 +48,7 @@ export async function apiRequest<T>(path: string, options: RequestInit & { token
   return payload as T;
 }
 
+// Saca un mensaje legible del error que devuelve DRF para mostrarlo en el formulario.
 export function extractApiError(payload: unknown): string {
   if (typeof payload === "string") return payload;
   if (payload && typeof payload === "object") {
@@ -67,6 +69,7 @@ export async function getProducts(params?: URLSearchParams): Promise<ApiPage<Pro
   return apiRequest<ApiPage<ProductDetails>>(`productos/${query}`);
 }
 
+// El detalle necesita categoría, editorial y autores completos, por eso se piden varios endpoints en paralelo.
 export async function getProduct(id: string | number): Promise<ProductDetails> {
   const product = await apiRequest<Product>(`productos/${id}/`);
   const categoryId = typeof product.categoria === "number" ? product.categoria : product.categoria.id;

@@ -7,12 +7,14 @@ import { CatalogExplorer } from "@/components/catalog-explorer";
 
 export const metadata: Metadata = { title: "Catálogo" };
 
+// Server Component: trae la primera tanda de productos en el servidor y se la pasa al buscador (Client Component).
 export default async function CatalogPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const queryParams = await searchParams;
   const initialQuery = typeof queryParams.search === "string" ? queryParams.search : "";
   const rawCategory = typeof queryParams.categoria === "string" ? queryParams.categoria : "";
   const initialSort = typeof queryParams.ordering === "string" ? queryParams.ordering : "";
   const initialPage = typeof queryParams.page === "string" ? Math.max(1, Number(queryParams.page) || 1) : 1;
+  // Si la API no responde se muestra el catálogo de muestra con un aviso, para que la página no quede vacía.
   let products: ProductDetails[] = mockProducts;
   let categories: Category[] = mockCategories;
   let demo = true;
@@ -36,7 +38,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
   }
 
   return <section className="catalog-page page-shell">
-    <div className="catalog-hero"><div><span className="eyebrow">CÓMICS · MANGA · LIBROS</span><h1>El <em>catálogo.</em></h1><p>Buscá por título o ISBN, filtrá por categoría y sumá lo que quieras al carrito.</p></div><div className="catalog-big-index"><span>CATÁLOGO</span><strong>{String(products.length).padStart(2, "0")}</strong><small>TÍTULOS EN LISTA</small></div></div>
+    <div className="catalog-hero"><div><span className="eyebrow">CÓMICS · MANGA · LIBROS</span><h1>El <em>catálogo.</em></h1><p>Buscá por título o código, filtrá por categoría y sumá lo que quieras al carrito.</p></div><div className="catalog-big-index"><span>CATÁLOGO</span><strong>{String(products.length).padStart(2, "0")}</strong><small>TÍTULOS EN LISTA</small></div></div>
     <div className="catalog-hairline"><span>BUSCÁ TU PRÓXIMA LECTURA</span><span>FILTRÁ POR CATEGORÍA Y PRECIO</span></div>
     <CatalogExplorer initialProducts={products} categories={categories} demo={demo} initialQuery={initialQuery} initialCategory={initialCategory} initialSort={initialSort} initialPage={initialPage}/>
   </section>;
