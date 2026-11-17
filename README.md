@@ -115,11 +115,9 @@ La app se publica en Vercel. En el proyecto de Vercel hay que cargar la variable
 | `npm run test` | Pruebas con Vitest |
 
 ## Tablero Kanban y GitFlow
-
-- **Tablero (GitHub Projects):** https://github.com/MateeGonzaa/efiProgIII/projects
 - **Ramas (GitFlow):** `main` (versión entregada), `develop` (integración) y `feature/*` (una por funcionalidad, con su pull request hacia `develop`).
 
-Estado del tablero al momento de la entrega:
+Estado del tablero kanban al momento de la entrega:
 
 | Tarea | Responsable | Estado |
 | --- | --- | --- |
@@ -137,17 +135,11 @@ Estado del tablero al momento de la entrega:
 | Formularios con React Hook Form + Zod | Mateo | Done |
 | Tests con Vitest | Mateo | Done |
 | Deploy del frontend en Vercel | Mateo | Done |
-| Limpieza del código: componentes y dependencias sin uso | Mateo | Done |
 | Panel de gestión sin datos de muestra y con todas las páginas de productos | Mateo | Done |
 | Portadas cargadas por link `https://` | Mateo | Done |
-| Campo "ISBN" mostrado como "código de barras" | Mateo | Done |
-| Logo e ícono con los colores nuevos (violeta y negro) | Mateo | Done |
-| Textos de la tienda con Rio Cuarto | Mateo | Done |
 | README actualizado (API desplegada, Swagger, Kanban) | Mateo | Done |
 | Menú mobile con inicio de sesión, cuenta y carrito | Mateo | Done |
 | Ajustes de responsive mobile (sin desbordes ni "zoom") | Mateo | Done |
-| Responsive mobile v2: títulos fluidos, login/registro y carrito sin superposiciones, campos de 16px para que iOS no haga zoom | Mateo | Done |
-| Ícono de la pestaña (`icon.svg`, `favicon.ico`, `apple-icon.png`) y logo del header en violeta y negro | Mateo | Done |
 | Migrar los estilos globales a utilidades de Tailwind | Mateo | In Progress |
 | Capturas de la app funcionando | Mateo | In Progress |
 
