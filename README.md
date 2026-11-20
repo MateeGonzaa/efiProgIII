@@ -115,7 +115,7 @@ La app se publica en Vercel. En el proyecto de Vercel hay que cargar la variable
 - **Ramas (GitFlow):** `main` (versión entregada), `develop` (integración) y `feature/*` (una por funcionalidad, con su pull request hacia `develop`).
 
 Estado del tablero kanban al momento de la entrega:
-- **Tablero KanBan:** `https://www.figma.com/design/wWI5Q63apz0cjZsa0KncMB/La-Frikicueva-%C2%B7-Tablero-Kanban?node-id=0-1&t=kd1p3LFjGNQQVmlJ-1`
+- **Tablero KanBan:** https://www.figma.com/design/wWI5Q63apz0cjZsa0KncMB/La-Frikicueva-%C2%B7-Tablero-Kanban?node-id=0-1&t=kd1p3LFjGNQQVmlJ-1
 
 
 ## Equipo
