@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loginSchema, productSchema, profileSchema, registerSchema } from "@/lib/schemas";
+import { loginSchema, productSchema, profileSchema, publisherSchema, registerSchema } from "@/lib/schemas";
 
 /** Devuelve los campos que fallaron al validar, para comprobar una regla a la vez. */
 function failedFields(result: { success: boolean; error?: { issues: { path: PropertyKey[] }[] } }) {
@@ -57,5 +57,15 @@ describe("producto: reglas del alta y la edición", () => {
   });
   it("convierte el precio que llega como texto desde el input", () => {
     expect(productSchema.parse({ ...base, precio: "9500" }).precio).toBe(9500);
+  });
+});
+
+describe("editorial nueva: validación del alta rápida", () => {
+  it("rechaza un nombre demasiado corto", () => {
+    expect(failedFields(publisherSchema.safeParse({ nombre: "A", pais: "" }))).toEqual(["nombre"]);
+  });
+  it("acepta nombre sin país y recorta los espacios", () => {
+    const result = publisherSchema.safeParse({ nombre: "  Panini  " });
+    expect(result.success && result.data.nombre).toBe("Panini");
   });
 });
