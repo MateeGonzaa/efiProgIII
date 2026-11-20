@@ -16,7 +16,7 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 | Fichas | Detalle de cada edición (`/catalogo/[id]`) con autores, editorial, stock y portada. |
 | Carrito y pedidos | Carrito, checkout básico, listado, detalle y cancelación de pedidos. Los usuarios staff también pueden comprar, con su propio perfil de cliente. |
 | Cuenta | Registro, login/logout con token, perfil de cliente. |
-| Gestión (staff) | CRUD de productos (`GET`, `POST`, `PATCH`, `DELETE /api/productos/`) con stock y pasillo, y alta de autores nuevos desde el mismo formulario (`POST /api/autores/`). La API solo permite escribir a usuarios staff. |
+| Gestión (staff) | CRUD de productos (`GET`, `POST`, `PATCH`, `DELETE /api/productos/`) con stock y pasillo, y alta de autores y editoriales nuevos desde el mismo formulario (`POST /api/autores/` y `POST /api/editoriales/`). La API solo permite escribir a usuarios staff. |
 | Experiencia | Tema claro/oscuro, portadas ilustradas, microanimaciones, estados de carga y error, página 404. |
 
 Si la API no responde, el catálogo público muestra una **vista de muestra** (con aviso). El panel de gestión no usa datos de muestra: si falla la API, muestra el error.
@@ -42,7 +42,7 @@ Si el producto no tiene imagen, o el link falla, se muestra una ilustración SVG
 ## Stack
 
 - Next.js 16 (App Router) y TypeScript.
-- Server Components para inicio, fichas y primera carga del catálogo; Client Components para filtros, sesión, carrito y formularios.
+- Server Components para inicio, fichas y primera carga del catálogo; Client Components para filtros, sesión, carrito y formularios. El panel de gestión carga sus datos desde el navegador (con el token de la sesión) para que el firewall de la API no bloquee las llamadas hechas desde el servidor de Vercel.
 - Tailwind CSS 4 (los colores del diseño están como tokens en `@theme`, en `globals.css`).
 - React Hook Form + Zod para formularios.
 - Context API para sesión, tema y carrito.
@@ -90,8 +90,8 @@ npm run test
 
 | Archivo | Qué prueba |
 | --- | --- |
-| `lib/app.test.ts` | Esquemas de login, registro y producto, formato de precios, búsqueda, errores de la API, categorías (incluidas las repetidas), autores nuevos, perfil de cliente y rutas de portadas |
-| `tests/schemas.test.ts` | Cada regla de Zod por separado (login, registro, perfil, producto) |
+| `lib/app.test.ts` | Esquemas de login, registro y producto, formato de precios, búsqueda, errores de la API, categorías (incluidas las repetidas), autores y editoriales nuevos, perfil de cliente y rutas de portadas |
+| `tests/schemas.test.ts` | Cada regla de Zod por separado (login, registro, perfil, producto, editorial nueva) |
 | `tests/navigation.test.ts` | Qué link del menú queda activo según la URL |
 | `tests/categories.test.ts` | Agrupación por categoría, precio inicial y autores de las tarjetas del inicio |
 | `tests/components.test.tsx` | Cambio de tema (Context), campo de formulario, tarjeta de producto y tarjeta de categoría |

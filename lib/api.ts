@@ -156,6 +156,16 @@ export async function createAuthor(token: string, nombre: string, biografia = ""
   return apiRequest<Author>("autores/", { method: "POST", token, body: JSON.stringify(body) });
 }
 
+// Crea una editorial nueva en la API (solo staff). Igual que con los autores: si ya existe una con ese nombre se devuelve esa, para no duplicarla.
+export async function createPublisher(token: string, nombre: string, pais = "", existing: Publisher[] = []): Promise<Publisher> {
+  const name = nombre.trim();
+  const found = existing.find((publisher) => publisher.nombre.trim().toLocaleLowerCase("es-AR") === name.toLocaleLowerCase("es-AR"));
+  if (found) return found;
+  const body: Record<string, string> = { nombre: name };
+  if (pais.trim()) body.pais = pais.trim();
+  return apiRequest<Publisher>("editoriales/", { method: "POST", token, body: JSON.stringify(body) });
+}
+
 export async function getOrders(token: string) {
   return getAll<Order>("pedidos/", token);
 }

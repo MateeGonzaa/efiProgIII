@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loginSchema, productSchema, registerSchema } from "@/lib/schemas";
-import { createAuthor, extractApiError, getCustomerProfile } from "@/lib/api";
+import { createAuthor, createPublisher, extractApiError, getCustomerProfile } from "@/lib/api";
 import { categoryLabel, matchCategory, filterProducts, formatCurrency, getApiMessage, imageSrc, uniqueCategories } from "@/lib/utils";
 import { mockProducts } from "@/lib/mock-data";
 
@@ -140,6 +140,28 @@ describe("autores nuevos", () => {
       const author = await createAuthor("tok", "stan lee", "", [{ id: 1, nombre: "Stan Lee" }]);
       expect(author.id).toBe(1);
       expect(calls).toHaveLength(0);
+    });
+  });
+});
+
+describe("editoriales nuevas", () => {
+  it("guarda la editorial en la API con el token de staff", async () => {
+    await withFakeApi((_url, init) => ({ id: 4, ...JSON.parse(String(init?.body)) }), async (calls) => {
+      const publisher = await createPublisher("tok", "  Panini ", "Italia", []);
+      expect(publisher).toEqual({ id: 4, nombre: "Panini", pais: "Italia" });
+      expect(calls).toHaveLength(1);
+      expect(calls[0].url).toContain("/editoriales/");
+      expect(calls[0].init?.method).toBe("POST");
+      expect((calls[0].init?.headers as Record<string, string>).Authorization).toBe("Token tok");
+    });
+  });
+  it("no manda el país si está vacío y no duplica una editorial existente", async () => {
+    await withFakeApi((_url, init) => ({ id: 5, ...JSON.parse(String(init?.body)) }), async (calls) => {
+      const created = await createPublisher("tok", "Ivrea", "  ", []);
+      expect(created).toEqual({ id: 5, nombre: "Ivrea" });
+      const found = await createPublisher("tok", "ivrea", "", [{ id: 2, nombre: "Ivrea" }]);
+      expect(found.id).toBe(2);
+      expect(calls).toHaveLength(1);
     });
   });
 });

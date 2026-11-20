@@ -1,6 +1,6 @@
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "bag" | "search" | "arrow" | "spark" | "user" | "moon" | "sun" | "menu" | "close" | "plus" | "minus" | "trash" | "check" | "filter" | "book" | "logout" | "chevron" | "shield" | "star" | "layers" | "mail";
+type IconName = "bag" | "search" | "arrow" | "spark" | "user" | "moon" | "sun" | "menu" | "close" | "plus" | "minus" | "trash" | "check" | "filter" | "book" | "logout" | "chevron" | "shield" | "star" | "pencil" | "layers" | "mail";
 
 const paths: Record<IconName, ReactNode> = {
   bag: <><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></>,
@@ -22,6 +22,7 @@ const paths: Record<IconName, ReactNode> = {
   chevron: <path d="m9 18 6-6-6-6"/>,
   shield: <><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></>,
   star: <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>,
+  pencil: <><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="m14 8 3 3"/></>,
   layers: <><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></>,
   mail: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></>,
 };

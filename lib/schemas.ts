@@ -27,6 +27,12 @@ export const productSchema = z.object({
   pasillo: z.string().min(1, "Indicá el pasillo.").max(10, "Máximo 10 caracteres."),
 });
 
+// Alta rápida de una editorial desde el formulario de producto (el país es opcional).
+export const publisherSchema = z.object({
+  nombre: z.string().trim().min(2, "El nombre de la editorial debe tener al menos 2 caracteres.").max(120, "Máximo 120 caracteres."),
+  pais: z.string().trim().max(60, "Máximo 60 caracteres.").optional().or(z.literal("")),
+});
+
 export const profileSchema = z.object({
   direccion_envio: z.string().min(5, "Ingresá una dirección más completa."),
   ciudad: z.string().min(2, "Ingresá tu ciudad."),
@@ -35,4 +41,5 @@ export const profileSchema = z.object({
 export type LoginValues = z.infer<typeof loginSchema>;
 export type RegisterValues = z.infer<typeof registerSchema>;
 export type ProductValues = z.infer<typeof productSchema>;
+export type PublisherValues = z.infer<typeof publisherSchema>;
 export type ProfileValues = z.infer<typeof profileSchema>;
