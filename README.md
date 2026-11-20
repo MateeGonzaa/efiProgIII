@@ -115,33 +115,8 @@ La app se publica en Vercel. En el proyecto de Vercel hay que cargar la variable
 - **Ramas (GitFlow):** `main` (versión entregada), `develop` (integración) y `feature/*` (una por funcionalidad, con su pull request hacia `develop`).
 
 Estado del tablero kanban al momento de la entrega:
+- **Tablero KanBan:** `https://www.figma.com/design/wWI5Q63apz0cjZsa0KncMB/La-Frikicueva-%C2%B7-Tablero-Kanban?node-id=0-1&t=kd1p3LFjGNQQVmlJ-1`
 
-| Tarea | Responsable | Estado |
-| --- | --- | --- |
-| Modelos y API REST con Django REST Framework | Lucas | Done |
-| Autenticación con token (login, registro y logout) en la API | Lucas | Done |
-| Deploy del backend en Render con base en Supabase | Lucas | Done |
-| Setup de Next.js + TypeScript + Tailwind | Mateo | Done |
-| Layouts, rutas anidadas y dinámicas, `not-found`, `loading` y `error` | Mateo | Done |
-| Catálogo con búsqueda, filtros, orden y paginación | Mateo | Done |
-| Detalle de producto | Mateo | Done |
-| Login, registro y rutas protegidas (`AuthGate`) | Mateo | Done |
-| Contexts de sesión, carrito y tema | Mateo | Done |
-| Carrito y pedidos | Mateo | Done |
-| CRUD de productos en el panel de gestión | Mateo | Done |
-| Formularios con React Hook Form + Zod | Mateo | Done |
-| Tests con Vitest | Mateo | Done |
-| Deploy del frontend en Vercel | Mateo | Done |
-| Panel de gestión sin datos de muestra y con todas las páginas de productos | Mateo | Done |
-| Portadas cargadas por link `https://` | Mateo | Done |
-| Catálogo sin categorías repetidas (un solo "Libros") | Mateo | Done |
-| El usuario admin puede comprar en la tienda con su propio perfil de cliente | Mateo | Done |
-| Alta de autores desde el formulario de productos, guardados en la API | Mateo | Done |
-| README actualizado (API desplegada, Swagger, Kanban) | Mateo | Done |
-| Menú mobile con inicio de sesión, cuenta y carrito | Mateo | Done |
-| Ajustes de responsive mobile (sin desbordes ni "zoom") | Mateo | Done |
-| Migrar los estilos globales a utilidades de Tailwind | Mateo | In Progress |
-| Capturas de la app funcionando | Mateo | In Progress |
 
 ## Equipo
 
