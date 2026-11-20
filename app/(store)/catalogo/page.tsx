@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCategories, getProducts } from "@/lib/api";
+import { getStoreCategories, getProducts } from "@/lib/api";
 import { mockCategories, mockProducts } from "@/lib/mock-data";
 import type { Category, ProductDetails } from "@/lib/types";
 import { matchCategory } from "@/lib/utils";
@@ -21,7 +21,7 @@ export default async function CatalogPage({ searchParams }: { searchParams: Prom
   let initialCategory = "";
   try {
     // Primero las categorías: el menú manda nombres ("manga") y acá se convierten al id real de la API.
-    categories = await getCategories();
+    categories = await getStoreCategories();
     initialCategory = String(matchCategory(categories, rawCategory)?.id ?? "");
     const params = new URLSearchParams();
     if (initialQuery.trim()) params.set("search", initialQuery.trim());

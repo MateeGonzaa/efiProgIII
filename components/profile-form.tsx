@@ -21,14 +21,14 @@ export function ProfileForm() {
 
   useEffect(() => {
     if (!session) return;
-    getCustomerProfile(session.token).then((data) => { setProfile(data); if (data) reset(data); }).catch((error: unknown) => setApiError(error instanceof Error ? error.message : "No pudimos cargar tu perfil.")).finally(() => setLoading(false));
+    getCustomerProfile(session.token, session.userId).then((data) => { setProfile(data); if (data) reset(data); }).catch((error: unknown) => setApiError(error instanceof Error ? error.message : "No pudimos cargar tu perfil.")).finally(() => setLoading(false));
   }, [session, reset]);
 
   const onSubmit = handleSubmit(async (values) => {
     if (!session) return;
     setApiError(""); setSaved(false);
     try {
-      const result = await apiRequest<CustomerProfile>(profile ? `clientes/${profile.id}/` : "clientes/", { method: profile ? "PATCH" : "POST", token: session.token, body: JSON.stringify(values) });
+      const result = await apiRequest<CustomerProfile>(profile ? `clientes/${profile.id}/` : "clientes/", { method: profile ? "PATCH" : "POST", token: session.token, body: JSON.stringify(session.isStaff && !profile && session.userId !== undefined ? { ...values, usuario: session.userId } : values) });
       setProfile(result); setSaved(true);
     } catch (error) { setApiError(error instanceof Error ? error.message : "No se pudo guardar el perfil."); }
   });
