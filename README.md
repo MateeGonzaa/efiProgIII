@@ -4,8 +4,8 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 
 - **Aplicación desplegada:** _https://frikicueva.vercel.app/_
 - **Repositorio del backend:** _https://github.com/Lucasaruza17/efi_ing_
-- **API desplegada (Render + Supabase):** https://la-frikicueva-api-k2rw.onrender.com/
-- **Documentación de la API (Swagger):** https://la-frikicueva-api-k2rw.onrender.com/api/docs/swagger/
+- **API desplegada (Render + Supabase):** _https://la-frikicueva-api-k2rw.onrender.com/_
+- **Documentación de la API (Swagger):** _https://la-frikicueva-api-k2rw.onrender.com/api/docs/swagger/_
 - **Documentación local:** `http://localhost:8000/api/docs/swagger/`
 
 ## Funcionalidades
@@ -113,9 +113,7 @@ La app se publica en Vercel. En el proyecto de Vercel hay que cargar la variable
 
 ## Tablero Kanban y GitFlow
 - **Ramas (GitFlow):** `main` (versión entregada), `develop` (integración) y `feature/*` (una por funcionalidad, con su pull request hacia `develop`).
-
-Estado del tablero kanban al momento de la entrega:
-- **Tablero KanBan:** https://www.figma.com/design/wWI5Q63apz0cjZsa0KncMB/La-Frikicueva-%C2%B7-Tablero-Kanban?node-id=0-1&t=kd1p3LFjGNQQVmlJ-1
+- **Tablero KanBan:** _https://www.figma.com/design/wWI5Q63apz0cjZsa0KncMB/La-Frikicueva-%C2%B7-Tablero-Kanban?node-id=0-1&t=kd1p3LFjGNQQVmlJ-1_
 
 
 ## Equipo
