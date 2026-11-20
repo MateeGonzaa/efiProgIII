@@ -666,3 +666,13 @@ body::after { display: none; }
 
 /* ---- Logo: marca violeta y negra (misma paleta que el ícono de la pestaña) ---- */
 .brand-mark { border: 0; border-radius: 9px; background: linear-gradient(135deg, #9a82ff, #5b3df0); color: #0a0b14; box-shadow: 0 6px 18px rgba(106, 69, 245, .35); }
+
+/* ---- Editor de productos: agregar autores nuevos ---- */
+.author-adder { grid-column: 1 / -1; display: grid; gap: 8px; padding: 14px; border: 1px dashed var(--line); background: var(--accent-faint); }
+.author-adder-title { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.author-adder-row { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 10px; align-items: stretch; }
+.author-adder input { width: 100%; min-height: 46px; padding: 0 13px; border: 1px solid var(--line); border-radius: 0; outline: none; background: var(--ink-soft); color: var(--paper); font-size: 12px; transition: border-color .2s; }
+.author-adder input:focus { border-color: var(--accent); }
+.author-adder input::placeholder { color: var(--paper-dim); opacity: .68; }
+@media (max-width: 760px) { .author-adder-row { grid-template-columns: 1fr; } .author-adder .button { width: 100%; } }
+

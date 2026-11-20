@@ -56,6 +56,25 @@ export function slugify(value: string): string {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+/**
+ * Si la API tiene dos categorías que en la tienda se ven igual (ej. "Fantasía Épica", que se muestra como "Libros",
+ * y otra llamada "Libros"), deja una sola. Se queda con la que está en `preferredIds` (la que tiene productos)
+ * y, si no hay datos, con la que se muestra con otro nombre (la de "Fantasía Épica").
+ */
+export function uniqueCategories<T extends { id: number; nombre: string }>(categories: T[], preferredIds: number[] = []): T[] {
+  const groups = new Map<string, T[]>();
+  for (const category of categories) {
+    const key = slugify(categoryLabel(category.nombre));
+    groups.set(key, [...(groups.get(key) ?? []), category]);
+  }
+  return categories.filter((category) => {
+    const group = groups.get(slugify(categoryLabel(category.nombre))) ?? [];
+    if (group.length < 2) return true;
+    const keep = group.find((item) => preferredIds.includes(item.id)) ?? group.find((item) => categoryLabel(item.nombre) !== item.nombre) ?? group[0];
+    return category.id === keep.id;
+  });
+}
+
 /** Acepta un id ("2") o un nombre/slug ("manga", "comics", "fantasia") y devuelve la categoría que corresponde. */
 export function matchCategory<T extends { id: number; nombre: string }>(categories: T[], value: string): T | undefined {
   const v = slugify(value);

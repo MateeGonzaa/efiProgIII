@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { apiRequest, UNAUTHORIZED_EVENT } from "@/lib/api";
 import type { CartLine, ProductDetails } from "@/lib/types";
 
-type Session = { token: string; username: string; isStaff: boolean };
+type Session = { token: string; username: string; isStaff: boolean; userId?: number };
 type AuthContextValue = {
   session: Session | null;
   ready: boolean;
@@ -40,7 +40,12 @@ export function StoreProviders({ children }: { children: ReactNode }) {
       const savedSession = localStorage.getItem("frikicueva-session");
       const savedLines = localStorage.getItem("frikicueva-cart");
       const savedTheme = localStorage.getItem("frikicueva-theme");
-      if (savedSession) { const parsed = JSON.parse(savedSession) as Session; setSession({ ...parsed, isStaff: Boolean(parsed.isStaff) }); }
+      if (savedSession) {
+        const parsed = JSON.parse(savedSession) as Session;
+        // Las sesiones de staff guardadas antes de este cambio no tienen el id del usuario: se vuelve a iniciar sesión una vez.
+        if (parsed.isStaff && typeof parsed.userId !== "number") localStorage.removeItem("frikicueva-session");
+        else setSession({ ...parsed, isStaff: Boolean(parsed.isStaff) });
+      }
       if (savedLines) setLines(JSON.parse(savedLines) as CartLine[]);
       if (savedTheme === "light" || savedTheme === "dark") setTheme(savedTheme);
     } catch {
@@ -65,11 +70,11 @@ export function StoreProviders({ children }: { children: ReactNode }) {
 
   // Login contra la API: guarda el token y si el usuario es staff, que después se usa para proteger las rutas.
   const signIn = useCallback(async (username: string, password: string) => {
-    const result = await apiRequest<{ token: string; usuario: { username: string; is_staff: boolean } }>("auth/login/", {
+    const result = await apiRequest<{ token: string; usuario: { id?: number; username: string; is_staff: boolean } }>("auth/login/", {
       method: "POST",
       body: JSON.stringify({ username, password }),
     });
-    const next = { token: result.token, username: result.usuario?.username ?? username, isStaff: Boolean(result.usuario?.is_staff) };
+    const next = { token: result.token, username: result.usuario?.username ?? username, isStaff: Boolean(result.usuario?.is_staff), userId: result.usuario?.id };
     localStorage.setItem("frikicueva-session", JSON.stringify(next));
     setSession(next);
   }, []);

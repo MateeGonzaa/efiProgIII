@@ -14,9 +14,9 @@ Tienda online argentina de **cómics, manga y libros**. Este repositorio es el *
 | --- | --- |
 | Catálogo | Búsqueda, filtro por categoría (Cómic, Manga, Libros), orden por precio/título y paginación, todo conectado a los filtros del backend. La URL se puede compartir (`/catalogo?categoria=manga`). |
 | Fichas | Detalle de cada edición (`/catalogo/[id]`) con autores, editorial, stock y portada. |
-| Carrito y pedidos | Carrito, checkout básico, listado, detalle y cancelación de pedidos. |
+| Carrito y pedidos | Carrito, checkout básico, listado, detalle y cancelación de pedidos. Los usuarios staff también pueden comprar, con su propio perfil de cliente. |
 | Cuenta | Registro, login/logout con token, perfil de cliente. |
-| Gestión (staff) | CRUD de productos (`GET`, `POST`, `PATCH`, `DELETE /api/productos/`) con stock y pasillo. La API solo permite escribir a usuarios staff. |
+| Gestión (staff) | CRUD de productos (`GET`, `POST`, `PATCH`, `DELETE /api/productos/`) con stock y pasillo, y alta de autores nuevos desde el mismo formulario (`POST /api/autores/`). La API solo permite escribir a usuarios staff. |
 | Experiencia | Tema claro/oscuro, portadas ilustradas, microanimaciones, estados de carga y error, página 404. |
 
 Si la API no responde, el catálogo público muestra una **vista de muestra** (con aviso). El panel de gestión no usa datos de muestra: si falla la API, muestra el error.
@@ -90,7 +90,7 @@ npm run test
 
 | Archivo | Qué prueba |
 | --- | --- |
-| `lib/app.test.ts` | Esquemas de login, registro y producto, formato de precios, búsqueda, errores de la API, categorías y rutas de portadas |
+| `lib/app.test.ts` | Esquemas de login, registro y producto, formato de precios, búsqueda, errores de la API, categorías (incluidas las repetidas), autores nuevos, perfil de cliente y rutas de portadas |
 | `tests/schemas.test.ts` | Cada regla de Zod por separado (login, registro, perfil, producto) |
 | `tests/navigation.test.ts` | Qué link del menú queda activo según la URL |
 | `tests/categories.test.ts` | Agrupación por categoría, precio inicial y autores de las tarjetas del inicio |
@@ -134,6 +134,9 @@ Estado del tablero kanban al momento de la entrega:
 | Deploy del frontend en Vercel | Mateo | Done |
 | Panel de gestión sin datos de muestra y con todas las páginas de productos | Mateo | Done |
 | Portadas cargadas por link `https://` | Mateo | Done |
+| Catálogo sin categorías repetidas (un solo "Libros") | Mateo | Done |
+| El usuario admin puede comprar en la tienda con su propio perfil de cliente | Mateo | Done |
+| Alta de autores desde el formulario de productos, guardados en la API | Mateo | Done |
 | README actualizado (API desplegada, Swagger, Kanban) | Mateo | Done |
 | Menú mobile con inicio de sesión, cuenta y carrito | Mateo | Done |
 | Ajustes de responsive mobile (sin desbordes ni "zoom") | Mateo | Done |

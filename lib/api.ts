@@ -1,3 +1,4 @@
+import { uniqueCategories } from "@/lib/utils";
 import type { ApiPage, Author, Category, CustomerProfile, Order, Product, ProductDetails, Publisher } from "@/lib/types";
 
 export const UNAUTHORIZED_EVENT = "frikicueva:unauthorized";
@@ -118,6 +119,18 @@ export async function getCategories() {
   return getAll<Category>("categorias/");
 }
 
+// Categorías para mostrar en la tienda: si dos se ven igual (ej. dos "Libros") queda solo la que tiene productos.
+export async function getStoreCategories(): Promise<Category[]> {
+  const categories = await getCategories();
+  const unique = uniqueCategories(categories);
+  if (unique.length === categories.length) return categories;
+  const withProducts: number[] = [];
+  await Promise.all(categories.map(async (category) => {
+    try { if ((await getProducts(new URLSearchParams({ categoria: String(category.id) }))).count > 0) withProducts.push(category.id); } catch { /* si falla, se usa el criterio por nombre */ }
+  }));
+  return uniqueCategories(categories, withProducts);
+}
+
 export async function getPublishers() {
   return getAll<Publisher>("editoriales/");
 }
@@ -126,9 +139,21 @@ export async function getAuthors() {
   return getAll<Author>("autores/");
 }
 
-export async function getCustomerProfile(token: string) {
-  const page = await apiRequest<ApiPage<CustomerProfile>>("clientes/", { token });
-  return page.results[0] ?? null;
+// Un cliente solo recibe su propio perfil, pero un usuario staff recibe el de todos: por eso se busca el que le pertenece.
+export async function getCustomerProfile(token: string, userId?: number) {
+  const profiles = await getAll<CustomerProfile>("clientes/", token);
+  if (userId !== undefined) return profiles.find((profile) => profile.usuario === userId) ?? null;
+  return profiles[0] ?? null;
+}
+
+// Crea un autor nuevo en la API (solo staff). Si ya existe uno con ese nombre se devuelve ese, para no duplicarlo.
+export async function createAuthor(token: string, nombre: string, biografia = "", existing: Author[] = []): Promise<Author> {
+  const name = nombre.trim();
+  const found = existing.find((author) => author.nombre.trim().toLocaleLowerCase("es-AR") === name.toLocaleLowerCase("es-AR"));
+  if (found) return found;
+  const body: Record<string, string> = { nombre: name };
+  if (biografia.trim()) body.biografia = biografia.trim();
+  return apiRequest<Author>("autores/", { method: "POST", token, body: JSON.stringify(body) });
 }
 
 export async function getOrders(token: string) {

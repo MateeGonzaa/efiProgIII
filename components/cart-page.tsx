@@ -21,7 +21,7 @@ export function CartPage() {
     if (!session) { router.push(`/login?next=${encodeURIComponent("/carrito")}`); return; }
     setWorking(true); setError("");
     try {
-      const profile = await getCustomerProfile(session.token);
+      const profile = await getCustomerProfile(session.token, session.userId);
       if (!profile) { router.push("/cuenta/perfil"); return; }
       const order = await apiRequest<{ id: number }>("pedidos/", { method: "POST", token: session.token, body: JSON.stringify({}) });
       try {

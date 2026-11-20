@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ApiError, getAuthors, getCategories, getProduct, getPublishers, getStock } from "@/lib/api";
+import { ApiError, getAuthors, getStoreCategories, getProduct, getPublishers, getStock } from "@/lib/api";
 import type { Author, Category, ProductDetails, Publisher } from "@/lib/types";
 import { ProductEditor } from "@/components/product-editor";
 import { ErrorNotice } from "@/components/status";
@@ -15,7 +15,7 @@ export default async function EditProductPage({ params }: Props) {
   let product: ProductDetails, categories: Category[], publishers: Publisher[], authors: Author[];
   try {
     product = await getProduct(id);
-    [categories, publishers, authors] = await Promise.all([getCategories(), getPublishers(), getAuthors()]);
+    [categories, publishers, authors] = await Promise.all([getStoreCategories(), getPublishers(), getAuthors()]);
   } catch (reason) {
     // Si el producto no existe mostramos la 404; cualquier otro error se muestra en pantalla.
     if (reason instanceof ApiError && reason.status === 404) notFound();
